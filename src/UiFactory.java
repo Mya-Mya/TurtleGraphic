@@ -29,9 +29,19 @@ public class UiFactory {
     public static final JLabel label(){
         JLabel l=new JLabel();
         l.setFont(mainFont);
+        l.setOpaque(true);
         l.setBorder(smallEmptyBorder());
         l.setBackground(back);
         l.setForeground(white);
         return l;
+    }
+
+    public static final JTextField textField() {
+        JTextField t=new JTextField();
+        t.setFont(mainFont);
+        t.setBorder(smallEmptyBorder());
+        t.setBackground(black);
+        t.setForeground(white);
+        return t;
     }
 }
