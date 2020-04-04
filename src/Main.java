@@ -9,11 +9,13 @@ public class Main extends JFrame {
 
     public Main() {
         super("TurtleGraphic");
-        setPreferredSize(new Dimension(600, 500));
+        setPreferredSize(new Dimension(1000, 700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        TurtleView vTurtleView=new TurtleView();
+        StatePanel vStatePanel=new StatePanel();
+        add(vStatePanel,BorderLayout.SOUTH);
+        TurtleView vTurtleView=new TurtleView(vStatePanel,vStatePanel);
         add(vTurtleView, BorderLayout.CENTER);
         add(new ConrtollerPanel(vTurtleView),BorderLayout.EAST);
 
