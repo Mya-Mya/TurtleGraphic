@@ -215,11 +215,11 @@ public class TurtleBehaviour {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (TurtleMotionListener listener : turtleMotionListenerList) listener.onStartedTurtleMoving();
                 synchronized (runningTurtleBotThread){
                     if(runningTurtleBotThread)return;
                     runningTurtleBotThread = true;
                 }
+                for (TurtleMotionListener listener : turtleMotionListenerList) listener.onStartedTurtleMoving();
                 System.out.println("カメロボットスレッド開始");
 
                 while (true) {
