@@ -1,10 +1,21 @@
+import model.TurtleBehaviour;
+import view.ControllerPanel;
+import view.StatePanel;
+import view.TurtleView;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Main extends JFrame {
 
     public static void main(String[] args) {
-        new Main();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Main();
+            }
+        });
+
     }
 
     public Main() {
@@ -13,11 +24,14 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        StatePanel vStatePanel=new StatePanel();
-        add(vStatePanel,BorderLayout.SOUTH);
-        TurtleView vTurtleView=new TurtleView(vStatePanel,vStatePanel);
+        StatePanel vStatePanel = new StatePanel();
+        TurtleView vTurtleView = new TurtleView(vStatePanel);
+        TurtleBehaviour mTurtleBehaviour = new TurtleBehaviour(vTurtleView, vStatePanel);
+        ControllerPanel vControllerPanel = new ControllerPanel(mTurtleBehaviour);
+
+        add(vStatePanel, BorderLayout.SOUTH);
         add(vTurtleView, BorderLayout.CENTER);
-        add(new ConrtollerPanel(vTurtleView),BorderLayout.EAST);
+        add(vControllerPanel, BorderLayout.EAST);
 
         pack();
         setVisible(true);
