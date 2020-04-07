@@ -106,7 +106,7 @@ public class PositionAndAngleSetting extends JDialog {
         return Double.parseDouble(cAngleField.getText());
     }
 
-    public boolean isApproved() {
+    public boolean wasApproved() {
         return approved;
     }
 }

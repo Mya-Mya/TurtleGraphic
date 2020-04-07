@@ -1,3 +1,10 @@
+package view;
+
+import model.TurtleBehaviour;
+import ui.UiFactory;
+import view.PositionAndAngleSetting;
+import view.TurtleView;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
@@ -7,12 +14,12 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class ConrtollerPanel extends JPanel {
-    private TurtleView vTurtleView;
+    private TurtleBehaviour mTurtleBehaviour;
     private Dimension buttonSize = new Dimension(200, 40);
 
-    public ConrtollerPanel(TurtleView vTurtleView) {
+    public ConrtollerPanel(TurtleBehaviour mTurtleBehaviour) {
         super();
-        this.vTurtleView = vTurtleView;
+        this.mTurtleBehaviour = mTurtleBehaviour;
         setBorder(UiFactory.bigEmptyBorder());
 
         setBackground(UiFactory.back);
@@ -21,77 +28,83 @@ public class ConrtollerPanel extends JPanel {
 
         addComment("カメ");
 
-        addActionButton("すすむ(↑)", KeyEvent.VK_UP,new ActionListener() {
+        addActionButton("すすむ(↑)", KeyEvent.VK_UP, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vTurtleView.goStraight(20);
-                vTurtleView.updateUI();
+                mTurtleBehaviour.goStraight(20);
             }
         });
 
-        addActionButton("右回り(→)",KeyEvent.VK_RIGHT, new ActionListener() {
+        addActionButton("右回り(→)", KeyEvent.VK_RIGHT, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vTurtleView.turn(45.);
-                vTurtleView.updateUI();
+                mTurtleBehaviour.turn(45.);
             }
         });
 
-        addActionButton("左回り(←)", KeyEvent.VK_LEFT,new ActionListener() {
+        addActionButton("左回り(←)", KeyEvent.VK_LEFT, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vTurtleView.turn(-45.);
-                vTurtleView.updateUI();
+                mTurtleBehaviour.turn(-45.);
             }
         });
 
-        addActionButton("大きく",null, new ActionListener() {
+        addActionButton("大きく", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vTurtleView.larger(1.2);
-                vTurtleView.updateUI();
+                mTurtleBehaviour.larger(1.2);
             }
         });
 
-        addActionButton("小さく",null, new ActionListener() {
+        addActionButton("小さく", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vTurtleView.smaller(1.2);
-                vTurtleView.updateUI();
+                mTurtleBehaviour.smaller(1.2);
+
             }
         });
 
-        addActionButton("位置指定(c)",KeyEvent.VK_C, new ActionListener() {
+        addActionButton("位置指定(c)", KeyEvent.VK_C, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PositionAndAngleSetting setting=new PositionAndAngleSetting(
-                        vTurtleView.getTurtleX(),
-                        vTurtleView.getTurtleY(),
-                        vTurtleView.getAngle()
+                PositionAndAngleSetting setting = new PositionAndAngleSetting(
+                        mTurtleBehaviour.getTurtleX(),
+                        mTurtleBehaviour.getTurtleY(),
+                        mTurtleBehaviour.getAngle()
                 );
-                if(setting.isApproved()){
-                    vTurtleView.moveTo(setting.getTurtleX(),setting.getTurtleY());
-                    vTurtleView.setAngle(setting.getTurtleAngle());
-                    vTurtleView.updateUI();
+                if (setting.wasApproved()) {
+                    mTurtleBehaviour.moveTo(setting.getTurtleX(), setting.getTurtleY());
+                    mTurtleBehaviour.setAngle(setting.getTurtleAngle());
+
                 }
+            }
+        });
+
+        addComment("ロボットカメ");
+
+        addActionButton("動かす", null, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
 
         addComment("背景");
 
         Component parent = this;
-        addActionButton("読み込み",null, new ActionListener() {
+        addActionButton("読み込み", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
                 chooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
-                        return f.isDirectory()||
+                        return f.isDirectory() ||
                                 f.getName().endsWith(".png") ||
                                 f.getName().endsWith(".jpg") ||
                                 f.getName().endsWith(".jpeg");
                     }
+
                     @Override
                     public String getDescription() {
                         return "背景にしたい写真を選んでね";
@@ -100,8 +113,8 @@ public class ConrtollerPanel extends JPanel {
                 if (chooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
                     Image image = new ImageIcon(chooser.getSelectedFile().getAbsolutePath()).getImage();
                     if (image == null) return;
-                    vTurtleView.setBackgroundImage(image);
-                    vTurtleView.updateUI();
+                    mTurtleBehaviour.setBackgroundImage(image);
+
                 }
             }
         });
@@ -121,13 +134,13 @@ public class ConrtollerPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
-    private void addActionButton(String text,Integer mnemonic, ActionListener action) {
+    private void addActionButton(String text, Integer mnemonic, ActionListener action) {
         JButton button = UiFactory.button();
         button.setText(text);
         button.setAlignmentX(.5f);
         button.setMaximumSize(buttonSize);//BoxLayoutの時はMaximSizeで大きさを指定するんだって
         button.addActionListener(action);
-        if (mnemonic!=null) {
+        if (mnemonic != null) {
             button.setMnemonic(mnemonic);
         }
         add(button);
