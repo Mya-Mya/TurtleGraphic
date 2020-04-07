@@ -1,5 +1,6 @@
 package view;
 
+import bot.TurtleBot;
 import model.TurtleBehaviour;
 import ui.UiFactory;
 import view.PositionAndAngleSetting;
@@ -13,11 +14,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-public class ConrtollerPanel extends JPanel {
+public class ControllerPanel extends JPanel {
     private TurtleBehaviour mTurtleBehaviour;
     private Dimension buttonSize = new Dimension(200, 40);
 
-    public ConrtollerPanel(TurtleBehaviour mTurtleBehaviour) {
+    public ControllerPanel(TurtleBehaviour mTurtleBehaviour) {
         super();
         this.mTurtleBehaviour = mTurtleBehaviour;
         setBorder(UiFactory.bigEmptyBorder());
@@ -85,7 +86,7 @@ public class ConrtollerPanel extends JPanel {
         addActionButton("動かす", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new TurtleBot(mTurtleBehaviour);
             }
         });
 
