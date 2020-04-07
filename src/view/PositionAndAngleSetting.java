@@ -1,3 +1,7 @@
+package view;
+
+import ui.UiFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

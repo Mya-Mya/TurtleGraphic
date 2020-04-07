@@ -1,7 +1,13 @@
+package view;
+
+import model.MousePositionListener;
+import model.TurtlePositionListener;
+import ui.UiFactory;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class StatePanel extends JPanel implements MousePositionListener,TurtlePositionListener {
+public class StatePanel extends JPanel implements MousePositionListener, TurtlePositionListener {
     private JLabel cMousePositionLabel;
     private JLabel cTurtlePositionLabel;
     private JLabel cTurtleAngleLabel;
