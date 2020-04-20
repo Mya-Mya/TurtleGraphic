@@ -16,7 +16,7 @@ import java.io.File;
 
 public class ControllerPanel extends JPanel {
     private TurtleBehaviour mTurtleBehaviour;
-    private Dimension buttonSize = new Dimension(200, 40);
+    private Dimension buttonSize = new Dimension(160, 30);
 
     public ControllerPanel(TurtleBehaviour mTurtleBehaviour) {
         super();
@@ -141,6 +141,7 @@ public class ControllerPanel extends JPanel {
         button.setAlignmentX(.5f);
         button.setMaximumSize(buttonSize);//BoxLayoutの時はMaximSizeで大きさを指定するんだって
         button.addActionListener(action);
+        button.setBorderPainted(false);
         if (mnemonic != null) {
             button.setMnemonic(mnemonic);
         }
