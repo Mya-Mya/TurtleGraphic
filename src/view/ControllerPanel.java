@@ -124,7 +124,7 @@ public class ControllerPanel extends JPanel {
     }
 
     private void addComment(String text) {
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(5));
 
         JLabel label = UiFactory.label();
         label.setText(text);
@@ -132,7 +132,7 @@ public class ControllerPanel extends JPanel {
         label.setAlignmentX(.5f);
         add(label);
 
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(5));
     }
 
     private void addActionButton(String text, Integer mnemonic, ActionListener action) {
@@ -146,7 +146,7 @@ public class ControllerPanel extends JPanel {
             button.setMnemonic(mnemonic);
         }
         add(button);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(5));
     }
 
 }
