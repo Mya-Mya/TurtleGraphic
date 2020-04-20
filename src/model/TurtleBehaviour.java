@@ -5,9 +5,11 @@ import view.TurtleView;
 import java.awt.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 public class TurtleBehaviour {
+
     interface AnimationFrame {
         void startRunning();
 
@@ -16,36 +18,34 @@ public class TurtleBehaviour {
         void finalFrame();
     }
 
-    private TurtleView vTurtleView;
-    private TurtlePositionListener iTurtlePositionListener;
-    private java.util.List<TurtleMotionListener> turtleMotionListenerList;
+    private List<TurtleBehaviourListener> behaviourListenerList;
+
     private Queue<AnimationFrame> animationFrameQueue;
 
     private double x = 50;
     private double y = 50;
     private double angle = 0;
     private double size = 1;
+    private Image iBackground;
     private Boolean runningTurtleBotThread = false;
 
     private final int FREQUENCY = 40;
     private final double ALL_TIME = .3;
 
-    public TurtleBehaviour(
-            TurtleView vTurtleView,
-            TurtlePositionListener iTurtlePositionListener) {
-        this.vTurtleView = vTurtleView;
-        this.iTurtlePositionListener = iTurtlePositionListener;
-        turtleMotionListenerList = new ArrayList<>();
+    public TurtleBehaviour() {
+        behaviourListenerList = new ArrayList<>();
         animationFrameQueue = new ArrayDeque<>();
-        vTurtleView.moveTo(x, y);
-        iTurtlePositionListener.onTurtlePositionChanged(x, y);
-        vTurtleView.setAngle(angle);
-        iTurtlePositionListener.onTurtleAngleChanged(angle);
-        vTurtleView.setSize(size);
     }
 
-    public void addTurtleMotionListener(TurtleMotionListener listener) {
-        turtleMotionListenerList.add(listener);
+    public void addTurtleBehaviourListener(TurtleBehaviourListener listener) {
+        behaviourListenerList.add(listener);
+        listener.onTurtleBehaviourChanged();
+    }
+
+    private void fireTurtleBehaviourListener() {
+        for (TurtleBehaviourListener listener : behaviourListenerList) {
+            listener.onTurtleBehaviourChanged();
+        }
     }
 
     public void move(double deltaX, double deltaY) {
@@ -66,16 +66,12 @@ public class TurtleBehaviour {
                 double sinTime = Math.sin(time * halfPi);
                 x = startX + sinTime * deltaX;
                 y = startY + sinTime * deltaY;
-                vTurtleView.moveTo(x, y);
-                iTurtlePositionListener.onTurtlePositionChanged(x, y);
             }
 
             @Override
             public void finalFrame() {
                 x = startX + deltaX;
                 y = startY + deltaY;
-                vTurtleView.moveTo(x, y);
-                iTurtlePositionListener.onTurtlePositionChanged(x, y);
             }
         });
 
@@ -105,16 +101,12 @@ public class TurtleBehaviour {
             public void run(double time) {
                 x = startX + cosAngle * l * time;
                 y = startY + sinAngle * l * time;
-                vTurtleView.moveTo(x, y);
-                iTurtlePositionListener.onTurtlePositionChanged(x, y);
             }
 
             @Override
             public void finalFrame() {
                 x = startX + cosAngle * l;
                 y = startY + sinAngle * l;
-                vTurtleView.moveTo(x, y);
-                iTurtlePositionListener.onTurtlePositionChanged(x, y);
             }
         });
     }
@@ -132,15 +124,11 @@ public class TurtleBehaviour {
             @Override
             public void run(double time) {
                 angle = startAngle + deltaAngle * Math.sin(time);
-                vTurtleView.setAngle(angle);
-                iTurtlePositionListener.onTurtleAngleChanged(angle);
             }
 
             @Override
             public void finalFrame() {
                 angle = startAngle + deltaAngle;
-                vTurtleView.setAngle(angle);
-                iTurtlePositionListener.onTurtleAngleChanged(angle);
             }
         });
 
@@ -161,13 +149,12 @@ public class TurtleBehaviour {
 
             @Override
             public void run(double time) {
-                vTurtleView.setSize(startSize * Math.pow(ratio, time));
+                size = startSize * Math.pow(ratio, time);
             }
 
             @Override
             public void finalFrame() {
                 size = startSize * ratio;
-                vTurtleView.setSize(size);
             }
         });
     }
@@ -176,9 +163,6 @@ public class TurtleBehaviour {
         larger(1. / ratio);
     }
 
-    public void setSize(double size) {
-        vTurtleView.setSize(size);
-    }
 
     public double getTurtleX() {
         return x;
@@ -193,8 +177,16 @@ public class TurtleBehaviour {
     }
 
     public void setBackgroundImage(Image iBackground) {
-        vTurtleView.setBackgroundImage(iBackground);
-        vTurtleView.updateUI();
+        this.iBackground = iBackground;
+        fireTurtleBehaviourListener();
+    }
+
+    public Image getBackgroundImage() {
+        return iBackground;
+    }
+
+    public double getSize() {
+        return size;
     }
 
     public boolean isRunningTurtleBotThread() {
@@ -215,16 +207,15 @@ public class TurtleBehaviour {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (runningTurtleBotThread){
-                    if(runningTurtleBotThread)return;
+                synchronized (runningTurtleBotThread) {
+                    if (runningTurtleBotThread) return;
                     runningTurtleBotThread = true;
                 }
-                for (TurtleMotionListener listener : turtleMotionListenerList) listener.onStartedTurtleMoving();
                 System.out.println("カメロボットスレッド開始");
 
                 while (true) {
                     AnimationFrame frame;
-                    synchronized (animationFrameQueue){
+                    synchronized (animationFrameQueue) {
                         frame = animationFrameQueue.poll();
                     }
                     if (frame == null) break;
@@ -232,30 +223,30 @@ public class TurtleBehaviour {
                     frame.startRunning();
                     System.out.println(frame + "のアニメーション開始");
                     for (int i = 0; i < numFrame; i++) {
-                        try {
-                            Thread.sleep(deltaTime);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        sleepFor(deltaTime);
                         frame.run((double) i / (double) numFrame);
+                        fireTurtleBehaviourListener();
                     }
                     frame.finalFrame();
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    fireTurtleBehaviourListener();
+                    sleepFor(100);
                     System.out.println(frame + "のアニメーション終了");
                 }
 
-                synchronized (runningTurtleBotThread){
+                synchronized (runningTurtleBotThread) {
                     runningTurtleBotThread = false;
                 }
-                for (TurtleMotionListener listener : turtleMotionListenerList) listener.onFinishedTurtleMoving();
                 System.out.println("カメロボットスレッド終了");
             }
         });
         thread.start();
+    }
 
+    private void sleepFor(long t) {
+        try {
+            Thread.sleep(t);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

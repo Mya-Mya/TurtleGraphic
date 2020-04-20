@@ -24,10 +24,13 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        StatePanel vStatePanel = new StatePanel();
-        TurtleView vTurtleView = new TurtleView(vStatePanel);
-        TurtleBehaviour mTurtleBehaviour = new TurtleBehaviour(vTurtleView, vStatePanel);
+        //モデル
+        TurtleBehaviour mTurtleBehaviour = new TurtleBehaviour();
+
+        //ビュー
+        StatePanel vStatePanel = new StatePanel(mTurtleBehaviour);
         ControllerPanel vControllerPanel = new ControllerPanel(mTurtleBehaviour);
+        TurtleView vTurtleView = new TurtleView(vStatePanel,mTurtleBehaviour);
 
         add(vStatePanel, BorderLayout.SOUTH);
         add(vTurtleView, BorderLayout.CENTER);
