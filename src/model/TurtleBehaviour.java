@@ -134,6 +134,14 @@ public class TurtleBehaviour {
 
     }
 
+    public void turnRight() {
+        turn(90);
+    }
+
+    public void turnLeft() {
+        turn(-90);
+    }
+
     public void setAngle(double angle) {
         turn(angle - this.angle);
     }
