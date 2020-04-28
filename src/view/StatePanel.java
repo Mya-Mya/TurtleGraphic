@@ -1,6 +1,8 @@
 package view;
 
 import model.MousePositionListener;
+import model.Turtle;
+import model.TurtleListener;
 import viewmodel.TurtleViewModel;
 import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
@@ -8,13 +10,13 @@ import ui.UiFactory;
 import javax.swing.*;
 import java.awt.*;
 
-public class StatePanel extends JPanel implements MousePositionListener, TurtleViewModelListener {
+public class StatePanel extends JPanel implements MousePositionListener, TurtleViewModelListener, TurtleListener {
     private TurtleViewModel mTurtleViewModel;
     private JLabel cMousePositionLabel;
-    private JLabel cTurtlePositionLabel;
-    private JLabel cTurtleAngleLabel;
+    private JLabel cTurtleTransformLabel;
+    private JLabel cTurtleSimulatedTransformLabel;
 
-    public StatePanel(TurtleViewModel mTurtleViewModel) {
+    public StatePanel(TurtleViewModel mTurtleViewModel, Turtle mTurtle) {
         super();
         this.mTurtleViewModel = mTurtleViewModel;
 
@@ -26,13 +28,14 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleV
         cMousePositionLabel = UiFactory.label();
         add(cMousePositionLabel);
 
-        cTurtlePositionLabel=UiFactory.label();
-        add(cTurtlePositionLabel);
+        cTurtleTransformLabel =UiFactory.label();
+        add(cTurtleTransformLabel);
 
-        cTurtleAngleLabel=UiFactory.label();
-        add(cTurtleAngleLabel);
+        cTurtleSimulatedTransformLabel =UiFactory.label();
+        add(cTurtleSimulatedTransformLabel);
 
         setVisible(true);
+        mTurtle.addTurtleListener(this);
         mTurtleViewModel.addTurtleBehaviourListener(this);
     }
 
@@ -46,7 +49,20 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleV
         int x=(int) mTurtleViewModel.getTurtleX();
         int y=(int) mTurtleViewModel.getTurtleY();
         int angle=(((int) mTurtleViewModel.getAngle())+360)%360;
-        cTurtlePositionLabel.setText("カメ座標:"+x+","+y);
-        cTurtleAngleLabel.setText("カメ角度:"+angle);
+        cTurtleTransformLabel.setText("カメ座標:"+x+","+y+" カメ角度:"+angle);
+    }
+
+    @Override
+    public void onTurtleTransformChanged(double angle0, double angle1, double size0, double size1, double x0, double x1, double y0, double y1) {
+        int x=(int)x1;
+        int y=(int)y1;
+        int angle=(int)angle1;
+        cTurtleSimulatedTransformLabel.setText("カメ座標(シミュレーション):"+x+","+y+" カメ角度(シミュレーション):"+angle);
+
+    }
+
+    @Override
+    public void onTurtleImageChanged(Image image0, Image image1) {
+
     }
 }

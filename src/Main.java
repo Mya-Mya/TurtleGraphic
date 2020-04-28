@@ -36,7 +36,7 @@ public class Main extends JFrame {
         TurtleViewModel mTurtleViewModel = new TurtleViewModel(mTurtle);
 
         //ビュー
-        StatePanel vStatePanel = new StatePanel(mTurtleViewModel);
+        StatePanel vStatePanel = new StatePanel(mTurtleViewModel,mTurtle);
         ControllerPanel vControllerPanel = new ControllerPanel(mTurtleSimulator,mWorld);
         MainView vMainView = new MainView(vStatePanel, mTurtleViewModel,mWorld);
 
