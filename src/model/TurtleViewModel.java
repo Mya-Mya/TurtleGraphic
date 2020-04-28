@@ -1,14 +1,12 @@
 package model;
 
-import view.TurtleView;
-
 import java.awt.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class TurtleBehaviour {
+public class TurtleViewModel {
 
     interface AnimationFrame {
         void startRunning();
@@ -18,7 +16,7 @@ public class TurtleBehaviour {
         void finalFrame();
     }
 
-    private List<TurtleBehaviourListener> behaviourListenerList;
+    private List<TurtleViewModelListener> behaviourListenerList;
 
     private Queue<AnimationFrame> animationFrameQueue;
 
@@ -32,19 +30,19 @@ public class TurtleBehaviour {
     private final int FREQUENCY = 40;
     private final double ALL_TIME = .3;
 
-    public TurtleBehaviour() {
+    public TurtleViewModel() {
         behaviourListenerList = new ArrayList<>();
         animationFrameQueue = new ArrayDeque<>();
     }
 
-    public void addTurtleBehaviourListener(TurtleBehaviourListener listener) {
+    public void addTurtleBehaviourListener(TurtleViewModelListener listener) {
         behaviourListenerList.add(listener);
-        listener.onTurtleBehaviourChanged();
+        listener.onTurtleViewModelChanged();
     }
 
     private void fireTurtleBehaviourListener() {
-        for (TurtleBehaviourListener listener : behaviourListenerList) {
-            listener.onTurtleBehaviourChanged();
+        for (TurtleViewModelListener listener : behaviourListenerList) {
+            listener.onTurtleViewModelChanged();
         }
     }
 

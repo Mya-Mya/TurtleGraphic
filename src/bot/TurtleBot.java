@@ -1,9 +1,9 @@
 package bot;
 
-import model.TurtleBehaviour;
+import model.TurtleViewModel;
 
 public class TurtleBot {
-    public TurtleBot(TurtleBehaviour turtle) {
+    public TurtleBot(TurtleViewModel turtle) {
         turtle.goStraight(200);
         turtle.turnRight();
         turtle.goStraight(50);

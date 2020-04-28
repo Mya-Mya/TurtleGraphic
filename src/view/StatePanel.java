@@ -1,22 +1,22 @@
 package view;
 
 import model.MousePositionListener;
-import model.TurtleBehaviour;
-import model.TurtleBehaviourListener;
+import model.TurtleViewModel;
+import model.TurtleViewModelListener;
 import ui.UiFactory;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StatePanel extends JPanel implements MousePositionListener, TurtleBehaviourListener {
-    private TurtleBehaviour mTurtleBehaviour;
+public class StatePanel extends JPanel implements MousePositionListener, TurtleViewModelListener {
+    private TurtleViewModel mTurtleViewModel;
     private JLabel cMousePositionLabel;
     private JLabel cTurtlePositionLabel;
     private JLabel cTurtleAngleLabel;
 
-    public StatePanel(TurtleBehaviour mTurtleBehaviour) {
+    public StatePanel(TurtleViewModel mTurtleViewModel) {
         super();
-        this.mTurtleBehaviour=mTurtleBehaviour;
+        this.mTurtleViewModel = mTurtleViewModel;
 
         setBackground(UiFactory.back);
         setForeground(UiFactory.white);
@@ -33,7 +33,7 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleB
         add(cTurtleAngleLabel);
 
         setVisible(true);
-        mTurtleBehaviour.addTurtleBehaviourListener(this);
+        mTurtleViewModel.addTurtleBehaviourListener(this);
     }
 
     @Override
@@ -42,10 +42,10 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleB
     }
 
     @Override
-    public void onTurtleBehaviourChanged() {
-        int x=(int)mTurtleBehaviour.getTurtleX();
-        int y=(int)mTurtleBehaviour.getTurtleY();
-        int angle=(((int)mTurtleBehaviour.getAngle())+360)%360;
+    public void onTurtleViewModelChanged() {
+        int x=(int) mTurtleViewModel.getTurtleX();
+        int y=(int) mTurtleViewModel.getTurtleY();
+        int angle=(((int) mTurtleViewModel.getAngle())+360)%360;
         cTurtlePositionLabel.setText("カメ座標:"+x+","+y);
         cTurtleAngleLabel.setText("カメ角度:"+angle);
     }

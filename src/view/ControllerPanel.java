@@ -1,10 +1,8 @@
 package view;
 
 import bot.TurtleBot;
-import model.TurtleBehaviour;
+import model.TurtleViewModel;
 import ui.UiFactory;
-import view.PositionAndAngleSetting;
-import view.TurtleView;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -15,12 +13,12 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class ControllerPanel extends JPanel {
-    private TurtleBehaviour mTurtleBehaviour;
+    private TurtleViewModel mTurtleViewModel;
     private Dimension buttonSize = new Dimension(160, 30);
 
-    public ControllerPanel(TurtleBehaviour mTurtleBehaviour) {
+    public ControllerPanel(TurtleViewModel mTurtleViewModel) {
         super();
-        this.mTurtleBehaviour = mTurtleBehaviour;
+        this.mTurtleViewModel = mTurtleViewModel;
         setBorder(UiFactory.bigEmptyBorder());
 
         setBackground(UiFactory.back);
@@ -32,35 +30,35 @@ public class ControllerPanel extends JPanel {
         addActionButton("すすむ(↑)", KeyEvent.VK_UP, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleBehaviour.goStraight(20);
+                mTurtleViewModel.goStraight(20);
             }
         });
 
         addActionButton("右回り(→)", KeyEvent.VK_RIGHT, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleBehaviour.turn(45.);
+                mTurtleViewModel.turn(45.);
             }
         });
 
         addActionButton("左回り(←)", KeyEvent.VK_LEFT, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleBehaviour.turn(-45.);
+                mTurtleViewModel.turn(-45.);
             }
         });
 
         addActionButton("大きく", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleBehaviour.larger(1.2);
+                mTurtleViewModel.larger(1.2);
             }
         });
 
         addActionButton("小さく", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleBehaviour.smaller(1.2);
+                mTurtleViewModel.smaller(1.2);
 
             }
         });
@@ -69,13 +67,13 @@ public class ControllerPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PositionAndAngleSetting setting = new PositionAndAngleSetting(
-                        mTurtleBehaviour.getTurtleX(),
-                        mTurtleBehaviour.getTurtleY(),
-                        mTurtleBehaviour.getAngle()
+                        mTurtleViewModel.getTurtleX(),
+                        mTurtleViewModel.getTurtleY(),
+                        mTurtleViewModel.getAngle()
                 );
                 if (setting.wasApproved()) {
-                    mTurtleBehaviour.moveTo(setting.getTurtleX(), setting.getTurtleY());
-                    mTurtleBehaviour.setAngle(setting.getTurtleAngle());
+                    mTurtleViewModel.moveTo(setting.getTurtleX(), setting.getTurtleY());
+                    mTurtleViewModel.setAngle(setting.getTurtleAngle());
 
                 }
             }
@@ -86,7 +84,7 @@ public class ControllerPanel extends JPanel {
         addActionButton("動かす", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TurtleBot(mTurtleBehaviour);
+                new TurtleBot(mTurtleViewModel);
             }
         });
 
@@ -114,7 +112,7 @@ public class ControllerPanel extends JPanel {
                 if (chooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
                     Image image = new ImageIcon(chooser.getSelectedFile().getAbsolutePath()).getImage();
                     if (image == null) return;
-                    mTurtleBehaviour.setBackgroundImage(image);
+                    mTurtleViewModel.setBackgroundImage(image);
 
                 }
             }

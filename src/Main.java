@@ -1,7 +1,7 @@
-import model.TurtleBehaviour;
+import model.TurtleViewModel;
 import view.ControllerPanel;
 import view.StatePanel;
-import view.TurtleView;
+import view.MainView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,15 +25,15 @@ public class Main extends JFrame {
         setLayout(new BorderLayout());
 
         //モデル
-        TurtleBehaviour mTurtleBehaviour = new TurtleBehaviour();
+        TurtleViewModel mTurtleViewModel = new TurtleViewModel();
 
         //ビュー
-        StatePanel vStatePanel = new StatePanel(mTurtleBehaviour);
-        ControllerPanel vControllerPanel = new ControllerPanel(mTurtleBehaviour);
-        TurtleView vTurtleView = new TurtleView(vStatePanel,mTurtleBehaviour);
+        StatePanel vStatePanel = new StatePanel(mTurtleViewModel);
+        ControllerPanel vControllerPanel = new ControllerPanel(mTurtleViewModel);
+        MainView vMainView = new MainView(vStatePanel, mTurtleViewModel);
 
         add(vStatePanel, BorderLayout.SOUTH);
-        add(vTurtleView, BorderLayout.CENTER);
+        add(vMainView, BorderLayout.CENTER);
         add(vControllerPanel, BorderLayout.EAST);
 
         pack();
