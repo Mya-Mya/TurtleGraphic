@@ -93,24 +93,10 @@ public class ControllerPanel extends JPanel {
         addComment("背景");
 
         Component parent = this;
-        addActionButton("読み込み", null, new ActionListener() {
+        addActionButton("背景画像", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
-                chooser.setFileFilter(new FileFilter() {
-                    @Override
-                    public boolean accept(File f) {
-                        return f.isDirectory() ||
-                                f.getName().endsWith(".png") ||
-                                f.getName().endsWith(".jpg") ||
-                                f.getName().endsWith(".jpeg");
-                    }
-
-                    @Override
-                    public String getDescription() {
-                        return "背景にしたい写真を選んでね";
-                    }
-                });
+                JFileChooser chooser = createFileChooser(new String[]{".png", ".jpg", "jpeg"}, "背景にしたい画像を選んでね");
                 if (chooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
                     Image image = new ImageIcon(chooser.getSelectedFile().getAbsolutePath()).getImage();
                     if (image == null) return;
@@ -121,6 +107,37 @@ public class ControllerPanel extends JPanel {
         });
 
         setVisible(true);
+    }
+
+    /**
+     * ファイルを選ばせる`JFileChooser`を生成する。
+     *
+     * @param extensions  一覧に表示させるファイルの拡張子または末尾の文字列
+     * @param description 説明文
+     * @return
+     */
+    private JFileChooser createFileChooser(String[] extensions, String description) {
+        String currentDirectory = System.getProperty("user.dir");
+        JFileChooser chooser = new JFileChooser(currentDirectory);
+        FileFilter filter = new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) return true;
+                String name = f.getName();
+                for (String extension : extensions) {
+                    if (name.endsWith(extension)) return true;
+                }
+                return false;
+            }
+
+            @Override
+            public String getDescription() {
+                return description;
+            }
+        };
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle(description);
+        return chooser;
     }
 
     private void addComment(String text) {
