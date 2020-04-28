@@ -44,7 +44,7 @@ public enum FloorColor {
         return super.toString();
     }
 
-    static FloorColor fromString(String s) {
+    public static FloorColor fromString(String s) {
         switch (s.toLowerCase()) {
             case "黒":
             case "black":
