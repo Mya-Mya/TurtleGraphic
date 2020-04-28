@@ -21,12 +21,6 @@ MVC
 
 ボーダーもファクトリーで作るようにする。参考:`ui.UiFactory`
 
-### JDialogで揮発性の意思決定ダイアログ実装
-JDialogの派生クラスにおいて、
-* モーダルにして
-* ユーザーの意思を書き込むコンポーネントを配置し
-* その内容をゲッターで取得できるようにし
-* ユーザーが意思決定を承認したか棄却したか(参考:`view.PositionAndAngleSetting.wasApproved`)が分かるように
 
 すれば、呼び出し元のコードを止めながらユーザーの意思決定を受け付けることができ、便利。`JFileChooser`のようなもの。
 
@@ -47,7 +41,7 @@ JDialogの派生クラスにおいて、
 各コンポーネントの大きさ指定で`setMaximumSize`を呼び出す。参考:`ControllerPanel.addActionButton`
 
 ### JButtonのキーバインド設定
-`JButton.setMnemonic(mnemonic)`を使うとAlt+`mnemonic`で押せる。参考:`view.PositionAndAngleSetting.addActionButton`
+`JButton.setMnemonic(mnemonic)`を使うとAlt+`mnemonic`で押せる。
 
 ### JDialog派生クラスコンストラクタで親Frameを取得せずに済む方法
 `JOptionPane.getRootFrame`

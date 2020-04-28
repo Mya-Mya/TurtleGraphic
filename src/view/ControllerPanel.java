@@ -69,19 +69,18 @@ public class ControllerPanel extends JPanel {
             }
         });
 
-        addActionButton("位置指定(c)", KeyEvent.VK_C, new ActionListener() {
+        addComment("位置指定");
+        JTextField fieldX = addInput("x", String.valueOf(mTurtleSimulator.getSimulatedX()));
+        JTextField fieldY = addInput("y", String.valueOf(mTurtleSimulator.getSimulatedY()));
+        JTextField fieldAngle = addInput("角度", String.valueOf(mTurtleSimulator.getSimulatedAngle()));
+        addActionButton("実行(c)", KeyEvent.VK_C, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PositionAndAngleSetting setting = new PositionAndAngleSetting(
-                        mTurtleSimulator.getSimulatedX(),
-                        mTurtleSimulator.getSimulatedY(),
-                        mTurtleSimulator.getSimulatedAngle()
-                );
-                if (setting.wasApproved()) {
-                    mTurtleSimulator.setPosition(setting.getTurtleX(), setting.getTurtleY());
-                    mTurtleSimulator.setAngle(setting.getTurtleAngle());
-
-                }
+                double x = Double.parseDouble(fieldX.getText());
+                double y = Double.parseDouble(fieldY.getText());
+                double angle = Double.parseDouble(fieldAngle.getText());
+                mTurtleSimulator.setPosition(x, y);
+                mTurtleSimulator.setAngle(angle);
             }
         });
 
@@ -155,6 +154,22 @@ public class ControllerPanel extends JPanel {
         chooser.setFileFilter(filter);
         chooser.setDialogTitle(description);
         return chooser;
+    }
+
+    private JTextField addInput(String description, String initialText) {
+        JPanel panel = new JPanel();
+        panel.setBackground(UiFactory.back);
+        panel.setLayout(new GridLayout(1,2));
+        JLabel label = UiFactory.label();
+        label.setText(description);
+        JTextField field = UiFactory.textField();
+        field.setText(initialText);
+        panel.add(label);
+        panel.add(field);
+
+        pane.add(panel);
+        pane.add(Box.createVerticalStrut(5));
+        return field;
     }
 
     private void addComment(String text) {
