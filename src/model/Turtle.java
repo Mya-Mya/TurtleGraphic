@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class Turtle {
         setAngle(angle);
         setX(x);
         setY(y);
+        setImage(new ImageIcon("img/turtle.png").getImage());
     }
 
     public void addTurtleListener(TurtleListener l) {

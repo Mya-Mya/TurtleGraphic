@@ -1,6 +1,7 @@
 package view;
 
 import model.MousePositionListener;
+import model.World;
 import viewmodel.TurtleViewModel;
 import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
@@ -13,12 +14,14 @@ import java.awt.geom.AffineTransform;
 
 public class MainView extends JPanel implements TurtleViewModelListener {
     private TurtleViewModel mTurtleViewModel;
-    private Image iTurtle;
+    private World mWorld;
 
     public MainView(MousePositionListener iMousePositionListener,
-                    TurtleViewModel mTurtleViewModel) {
+                    TurtleViewModel mTurtleViewModel,
+                    World mWorld) {
         super();
         this.mTurtleViewModel = mTurtleViewModel;
+        this.mWorld=mWorld;
 
         setBackground(UiFactory.white);
 
@@ -32,7 +35,6 @@ public class MainView extends JPanel implements TurtleViewModelListener {
             }
         });
 
-        iTurtle = new ImageIcon("img/turtle.png").getImage();
         setVisible(true);
         mTurtleViewModel.addTurtleBehaviourListener(this);
     }
@@ -41,7 +43,7 @@ public class MainView extends JPanel implements TurtleViewModelListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        Image iBackground = mTurtleViewModel.getBackgroundImage();
+        Image iBackground = mWorld.getBackground();
         if (iBackground != null) {
             g2.drawImage(iBackground, 0, 0, this);
         }
@@ -55,7 +57,7 @@ public class MainView extends JPanel implements TurtleViewModelListener {
         int y= (int) mTurtleViewModel.getTurtleY();
         transform.setToRotation(Math.toRadians(angle + 90), x, y);
         g2.setTransform(transform);
-        g2.drawImage(iTurtle, (int) (x - width * .5), (int) (y - height * .5), width, height, this);
+        g2.drawImage(mTurtleViewModel.getBackgroundImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
     }
 
 
