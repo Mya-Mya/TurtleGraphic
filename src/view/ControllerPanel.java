@@ -112,7 +112,8 @@ public class ControllerPanel extends JPanel {
                 if (chooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
                     Image image = new ImageIcon(chooser.getSelectedFile().getAbsolutePath()).getImage();
                     if (image == null) return;
-                    mTurtleViewModel.setBackgroundImage(image);
+                    //mTurtleViewModel.setBackgroundImage(image);
+                    //mWorld.setBackgroundを呼び出すように。
 
                 }
             }
