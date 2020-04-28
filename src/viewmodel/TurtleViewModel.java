@@ -58,7 +58,36 @@ public class TurtleViewModel implements TurtleListener {
 
     @Override
     public void onTurtleTransformChanged(double angle0, double angle1, double size0, double size1, double x0, double x1, double y0, double y1) {
+        double deltaAngle = angle1 - angle0;
+        double deltaSize = size1 - size0;
+        double deltaX = x1 - x0;
+        double deltaY = y1 - y0;
 
+        AnimationFrame animation = new AnimationFrame() {
+
+            @Override
+            public void startRunning() {
+
+            }
+
+            @Override
+            public void run(double time) {
+                angle = angle0 + deltaAngle * time;
+                size = size0 + deltaSize * time;
+                x = x0 + deltaX * time;
+                y = y0 + deltaY * time;
+            }
+
+            @Override
+            public void finalFrame() {
+                angle = angle1;
+                size = size1;
+                x = x1;
+                y = y1;
+            }
+        };
+
+        addAnimation(animation);
     }
 
     @Override
