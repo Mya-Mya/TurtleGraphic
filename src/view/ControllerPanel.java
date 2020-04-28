@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class ControllerPanel extends JPanel {
+    private JPanel pane;
     private TurtleSimulator mTurtleSimulator;
     private World mWorld;
     private Dimension buttonSize = new Dimension(160, 30);
@@ -21,11 +22,14 @@ public class ControllerPanel extends JPanel {
     public ControllerPanel(TurtleSimulator mTurtleSimulator, World mWorld) {
         super();
         this.mTurtleSimulator = mTurtleSimulator;
-        setBorder(UiFactory.bigEmptyBorder());
-
         setBackground(UiFactory.back);
-        setForeground(UiFactory.white);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(UiFactory.smallEmptyBorder());
+
+        setLayout(new BorderLayout());
+        pane = new JPanel();
+        pane.setBorder(UiFactory.bigEmptyBorder());
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+        pane.setBackground(UiFactory.back);
 
         addComment("カメ");
 
@@ -116,6 +120,9 @@ public class ControllerPanel extends JPanel {
             }
         });
 
+        JScrollPane scrollPane = UiFactory.scrollPane();
+        scrollPane.setViewportView(pane);
+        add(scrollPane, BorderLayout.CENTER);
         setVisible(true);
     }
 
@@ -151,15 +158,15 @@ public class ControllerPanel extends JPanel {
     }
 
     private void addComment(String text) {
-        add(Box.createVerticalStrut(5));
+        pane.add(Box.createVerticalStrut(5));
 
         JLabel label = UiFactory.label();
         label.setText(text);
         label.setHorizontalTextPosition(JLabel.CENTER);
         label.setAlignmentX(.5f);
-        add(label);
+        pane.add(label);
 
-        add(Box.createVerticalStrut(5));
+        pane.add(Box.createVerticalStrut(5));
     }
 
     private void addActionButton(String text, Integer mnemonic, ActionListener action) {
@@ -172,8 +179,8 @@ public class ControllerPanel extends JPanel {
         if (mnemonic != null) {
             button.setMnemonic(mnemonic);
         }
-        add(button);
-        add(Box.createVerticalStrut(5));
+        pane.add(button);
+        pane.add(Box.createVerticalStrut(5));
     }
 
 }

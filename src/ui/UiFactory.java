@@ -51,4 +51,11 @@ public class UiFactory {
         t.setForeground(white);
         return t;
     }
+
+    public static final JScrollPane scrollPane() {
+        JScrollPane s = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        s.setBackground(black);
+        s.setBorder(null);
+        return s;
+    }
 }
