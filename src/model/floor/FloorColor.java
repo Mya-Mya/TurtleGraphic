@@ -27,4 +27,20 @@ public enum FloorColor {
         return UiFactory.back;
     }
 
+    @Override
+    public String toString() {
+        switch (this){
+            case BLACK:
+                return "黒";
+            case RED:
+                return "赤";
+            case BLUE:
+                return "青";
+            case GREEN:
+                return "緑";
+            case YELLOW:
+                return "黄";
+        }
+        return super.toString();
+    }
 }
