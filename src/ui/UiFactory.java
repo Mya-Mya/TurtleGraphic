@@ -10,7 +10,7 @@ public class UiFactory {
     public static final Color black = new Color(52, 56, 60);
     public static final Color red = new Color(213, 58, 47, 230);
     public static final Color blue = new Color(48, 124, 208, 230);
-    public static final Color yellow = new Color(204, 165, 55, 230);
+    public static final Color yellow = new Color(221, 195, 48, 230);
     public static final Color green = new Color(66, 181, 11, 230);
     public static final Color back = new Color(34, 34, 40);
 
