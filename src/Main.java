@@ -1,3 +1,5 @@
+import model.Turtle;
+import model.World;
 import viewmodel.TurtleViewModel;
 import view.ControllerPanel;
 import view.StatePanel;
@@ -25,6 +27,10 @@ public class Main extends JFrame {
         setLayout(new BorderLayout());
 
         //モデル
+        Turtle mTurtle = new Turtle(0, 1, 100, 100);
+        World mWorld = new World();
+
+        //ビューモデル
         TurtleViewModel mTurtleViewModel = new TurtleViewModel();
 
         //ビュー
