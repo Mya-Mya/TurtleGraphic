@@ -62,27 +62,27 @@ public class Turtle {
     }
 
     public void setAngle(double angle) {
-        double angle0 = angle;
+        double angle0 = this.angle;
         this.angle = (angle + 360.) % 360.;
         onTransformChanged(angle0, angle, size, size, x, x, y, y);
     }
 
     public void setImage(Image image) {
-        Image image0 = image;
+        Image image0 = this.image;
         this.image = image;
         onImageChanged(image0, image);
     }
 
     public void setSize(double size) {
-        double size0 = size;
+        double size0 = this.size;
         this.size = size;
         onTransformChanged(angle, angle, size0, size, x, x, y, y);
     }
 
 
     public void setPosition(double x, double y) {
-        double x0 = x;
-        double y0 = y;
+        double x0 = this.x;
+        double y0 = this.y;
         this.x = x;
         this.y = y;
         onTransformChanged(angle, angle, size, size, x0, x, y0, y);
