@@ -39,6 +39,8 @@ public class TurtleViewModel implements TurtleListener {
         x = mTurtle.getX();
         y = mTurtle.getY();
 
+        mTurtle.addTurtleListener(this);
+
         mTurtleViewModelListenerList = new ArrayList<>();
         animationFrameQueue = new ArrayDeque<>();
     }
