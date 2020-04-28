@@ -2,6 +2,7 @@ package view;
 
 import model.MousePositionListener;
 import model.World;
+import model.WorldListener;
 import viewmodel.TurtleViewModel;
 import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
@@ -12,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 
-public class MainView extends JPanel implements TurtleViewModelListener {
+public class MainView extends JPanel implements TurtleViewModelListener, WorldListener {
     private TurtleViewModel mTurtleViewModel;
     private World mWorld;
 
@@ -37,6 +38,7 @@ public class MainView extends JPanel implements TurtleViewModelListener {
 
         setVisible(true);
         mTurtleViewModel.addTurtleBehaviourListener(this);
+        mWorld.addWorldListener(this);
     }
 
     @Override
@@ -63,6 +65,11 @@ public class MainView extends JPanel implements TurtleViewModelListener {
 
     @Override
     public void onTurtleViewModelChanged() {
+        updateUI();
+    }
+
+    @Override
+    public void onWorldChanged() {
         updateUI();
     }
 }

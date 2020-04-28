@@ -36,7 +36,8 @@ public class Main extends JFrame {
         //ビュー
         StatePanel vStatePanel = new StatePanel(mTurtleViewModel);
         ControllerPanel vControllerPanel = new ControllerPanel(mTurtleViewModel);
-        MainView vMainView = new MainView(vStatePanel, mTurtleViewModel);
+        MainView vMainView = new MainView(vStatePanel, mTurtleViewModel,mWorld);
+        
 
         add(vStatePanel, BorderLayout.SOUTH);
         add(vMainView, BorderLayout.CENTER);
