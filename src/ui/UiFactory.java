@@ -8,6 +8,10 @@ public class UiFactory {
     public static final Font mainFont = new Font("メイリオ", Font.BOLD, 18);
     public static final Color white = new Color(240, 240, 240);
     public static final Color black=new Color(52, 56,60);
+    public static final Color red=new Color(213, 58, 47);
+    public static final Color blue=new Color(48, 124, 208, 230);
+    public static final Color yellow=new Color(204, 165, 55);
+    public static final Color green=new Color(66, 181, 11, 224);
     public static final Color back = new Color(34, 34, 40);
 
     public static final Border smallEmptyBorder(){
