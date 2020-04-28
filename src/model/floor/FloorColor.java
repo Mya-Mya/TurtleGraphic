@@ -11,7 +11,7 @@ public enum FloorColor {
     YELLOW,
     GREEN;
 
-    public Color getSwingColor(){
+    public Color getSwingColor() {
         switch (this) {
             case BLACK:
                 return UiFactory.black;
@@ -29,7 +29,7 @@ public enum FloorColor {
 
     @Override
     public String toString() {
-        switch (this){
+        switch (this) {
             case BLACK:
                 return "黒";
             case RED:
@@ -42,5 +42,26 @@ public enum FloorColor {
                 return "黄";
         }
         return super.toString();
+    }
+
+    static FloorColor fromString(String s) {
+        switch (s.toLowerCase()) {
+            case "黒":
+            case "black":
+                return BLACK;
+            case "赤":
+            case "red":
+                return RED;
+            case "青":
+            case "blue":
+                return BLUE;
+            case "緑":
+            case "green":
+                return GREEN;
+            case "黄":
+            case "yellow":
+                return YELLOW;
+        }
+        return null;
     }
 }
