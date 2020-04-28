@@ -22,7 +22,7 @@ public class Main extends JFrame {
     }
 
     public Main() {
-        super("TurtleGraphic");
+        super("TurtleGraphic - dev1");
         setPreferredSize(new Dimension(1000, 700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
