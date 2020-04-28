@@ -1,4 +1,4 @@
-import model.TurtleViewModel;
+import viewmodel.TurtleViewModel;
 import view.ControllerPanel;
 import view.StatePanel;
 import view.MainView;

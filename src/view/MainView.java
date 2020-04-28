@@ -1,8 +1,8 @@
 package view;
 
 import model.MousePositionListener;
-import model.TurtleViewModel;
-import model.TurtleViewModelListener;
+import viewmodel.TurtleViewModel;
+import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
 
 import javax.swing.*;

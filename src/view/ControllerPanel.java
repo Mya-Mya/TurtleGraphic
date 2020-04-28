@@ -1,7 +1,7 @@
 package view;
 
 import bot.TurtleBot;
-import model.TurtleViewModel;
+import viewmodel.TurtleViewModel;
 import ui.UiFactory;
 
 import javax.swing.*;

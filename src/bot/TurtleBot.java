@@ -1,6 +1,6 @@
 package bot;
 
-import model.TurtleViewModel;
+import viewmodel.TurtleViewModel;
 
 public class TurtleBot {
     public TurtleBot(TurtleViewModel turtle) {

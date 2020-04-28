@@ -1,4 +1,4 @@
-package model;
+package viewmodel;
 
 import java.awt.*;
 import java.util.ArrayDeque;
