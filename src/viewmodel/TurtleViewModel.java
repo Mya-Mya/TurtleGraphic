@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * カメの座標、角度、大きさの変化を受け取る。
+ * それらの変化にアニメーションを付随させ、アニメーションを順番に実行していく。
+ */
 public class TurtleViewModel implements TurtleListener {
     interface AnimationFrame {
         void startRunning();

@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * カメの座標、角度、大きさ、画像を管理する。
+ * このクラスはアニメーションの管理はしないし、各変数は瞬時に変更される。
  */
 public class Turtle {
     private List<TurtleListener> mTurtleListenerList = new ArrayList<>();

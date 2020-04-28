@@ -5,6 +5,9 @@ import model.World;
 import model.floor.Floor;
 import model.floor.FloorColor;
 
+/**
+ * 授業で使用するカメへの命令を受け付ける。
+ */
 public class TurtleSimulator {
     private Turtle mTurtle;
     private World mWorld;

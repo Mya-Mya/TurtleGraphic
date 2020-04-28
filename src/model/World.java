@@ -6,6 +6,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * カメ以外の要素のモデルを管理する。
+ */
 public class World {
     private List<WorldListener> mWorldListener=new ArrayList<>();
     private List<Floor> mFloorList = new ArrayList<>();
