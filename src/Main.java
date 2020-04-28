@@ -1,4 +1,5 @@
 import model.Turtle;
+import model.TurtleSimulator;
 import model.World;
 import viewmodel.TurtleViewModel;
 import view.ControllerPanel;
@@ -29,15 +30,16 @@ public class Main extends JFrame {
         //モデル
         Turtle mTurtle = new Turtle(0, 1, 100, 100);
         World mWorld = new World();
+        TurtleSimulator mTurtleSimulator=new TurtleSimulator(mTurtle,mWorld);
 
         //ビューモデル
-        TurtleViewModel mTurtleViewModel = new TurtleViewModel();
+        TurtleViewModel mTurtleViewModel = new TurtleViewModel(mTurtle);
 
         //ビュー
         StatePanel vStatePanel = new StatePanel(mTurtleViewModel);
-        ControllerPanel vControllerPanel = new ControllerPanel(mTurtleViewModel);
+        ControllerPanel vControllerPanel = new ControllerPanel(mTurtleSimulator,mWorld);
         MainView vMainView = new MainView(vStatePanel, mTurtleViewModel,mWorld);
-        
+
 
         add(vStatePanel, BorderLayout.SOUTH);
         add(vMainView, BorderLayout.CENTER);
