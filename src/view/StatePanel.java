@@ -3,6 +3,8 @@ package view;
 import model.MousePositionListener;
 import model.Turtle;
 import model.TurtleListener;
+import model.TurtleSimulator;
+import model.floor.FloorColor;
 import viewmodel.TurtleViewModel;
 import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
@@ -12,13 +14,15 @@ import java.awt.*;
 
 public class StatePanel extends JPanel implements MousePositionListener, TurtleViewModelListener, TurtleListener {
     private TurtleViewModel mTurtleViewModel;
+    private TurtleSimulator mTurtleSimulator;
     private JLabel cMousePositionLabel;
     private JLabel cTurtleTransformLabel;
     private JLabel cTurtleSimulatedTransformLabel;
 
-    public StatePanel(TurtleViewModel mTurtleViewModel, Turtle mTurtle) {
+    public StatePanel(TurtleViewModel mTurtleViewModel, Turtle mTurtle, TurtleSimulator mTurtleSimulator) {
         super();
         this.mTurtleViewModel = mTurtleViewModel;
+        this.mTurtleSimulator = mTurtleSimulator;
 
         setBackground(UiFactory.back);
         setForeground(UiFactory.white);
@@ -56,8 +60,12 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleV
         int x = (int) x1;
         int y = (int) y1;
         int angle = (int) angle1;
-        cTurtleSimulatedTransformLabel.setText("カメ(シミュレーション):" + x + "," + y + "," + angle);
-
+        FloorColor floorColor = mTurtleSimulator.getFloorColorOn();
+        String onFloorText = "";
+        if (floorColor != null) {
+            onFloorText = floorColor.toString() + "の上";
+        }
+        cTurtleSimulatedTransformLabel.setText("カメ(シミュレーション):" + x + "," + y + "," + angle + " " + onFloorText);
     }
 
     @Override
