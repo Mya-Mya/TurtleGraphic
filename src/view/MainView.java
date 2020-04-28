@@ -3,6 +3,7 @@ package view;
 import model.MousePositionListener;
 import model.World;
 import model.WorldListener;
+import model.floor.Floor;
 import viewmodel.TurtleViewModel;
 import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
@@ -48,6 +49,16 @@ public class MainView extends JPanel implements TurtleViewModelListener, WorldLi
         Image iBackground = mWorld.getBackground();
         if (iBackground != null) {
             g2.drawImage(iBackground, 0, 0, this);
+        }
+
+        for (Floor floor : mWorld.getFloorList()) {
+            Color color=floor.getFloorColor().getSwingColor();
+            g2.setColor(color);
+            int x=floor.getP1().x;
+            int y=floor.getP1().y;
+            int width=floor.getP2().x-x;
+            int height=floor.getP2().y-y;
+            g2.fillRoundRect(x,y,width,height,1,1);
         }
 
         AffineTransform transform = g2.getTransform();
