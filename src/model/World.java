@@ -57,5 +57,6 @@ public class World {
 
     public void setBackground(Image background) {
         this.background = background;
+        fireWorldListener();
     }
 }
