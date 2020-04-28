@@ -106,6 +106,16 @@ public class ControllerPanel extends JPanel {
             }
         });
 
+        addActionButton("床データ", null, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = createFileChooser(new String[]{".txt", ".csv"}, "持ってきたい床のデータを選んでね");
+                if (chooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
+                    mWorld.loadFloor(chooser.getSelectedFile());
+                }
+            }
+        });
+
         setVisible(true);
     }
 
