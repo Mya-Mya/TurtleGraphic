@@ -59,7 +59,7 @@ public class MainView extends JPanel implements TurtleViewModelListener, WorldLi
         int y= (int) mTurtleViewModel.getTurtleY();
         transform.setToRotation(Math.toRadians(angle + 90), x, y);
         g2.setTransform(transform);
-        g2.drawImage(mTurtleViewModel.getBackgroundImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
+        g2.drawImage(mTurtleViewModel.getImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
     }
 
 
