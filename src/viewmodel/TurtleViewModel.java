@@ -15,8 +15,6 @@ import java.util.Queue;
  */
 public class TurtleViewModel implements TurtleListener {
     interface AnimationFrame {
-        void startRunning();
-
         void run(double time);
 
         void finalFrame();
@@ -69,10 +67,6 @@ public class TurtleViewModel implements TurtleListener {
 
         AnimationFrame animation = new AnimationFrame() {
 
-            @Override
-            public void startRunning() {
-
-            }
 
             @Override
             public void run(double time) {
@@ -152,7 +146,6 @@ public class TurtleViewModel implements TurtleListener {
                     }
                     if (frame == null) break;
 
-                    frame.startRunning();
                     System.out.println(frame + "のアニメーション開始");
                     for (int i = 0; i < numFrame; i++) {
                         sleepFor(deltaTime);
