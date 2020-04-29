@@ -38,7 +38,7 @@ public class MainView extends JPanel implements TurtleViewModelListener, WorldLi
         });
 
         setVisible(true);
-        mTurtleViewModel.addTurtleBehaviourListener(this);
+        mTurtleViewModel.addTurtleViewListener(this);
         mWorld.addWorldListener(this);
     }
 

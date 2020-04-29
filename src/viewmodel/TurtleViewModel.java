@@ -49,7 +49,7 @@ public class TurtleViewModel implements TurtleListener {
         animationFrameQueue = new ArrayDeque<>();
     }
 
-    public void addTurtleBehaviourListener(TurtleViewModelListener listener) {
+    public void addTurtleViewListener(TurtleViewModelListener listener) {
         mTurtleViewModelListenerList.add(listener);
         listener.onTurtleViewModelChanged();
     }

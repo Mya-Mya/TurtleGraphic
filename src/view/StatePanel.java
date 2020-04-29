@@ -39,7 +39,7 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleV
 
         setVisible(true);
         mTurtle.addTurtleListener(this);
-        mTurtleViewModel.addTurtleBehaviourListener(this);
+        mTurtleViewModel.addTurtleViewListener(this);
     }
 
     @Override
