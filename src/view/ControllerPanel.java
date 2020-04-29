@@ -73,14 +73,17 @@ public class ControllerPanel extends JPanel {
         JTextField fieldX = addInput("x", String.valueOf(mTurtleSimulator.getSimulatedX()));
         JTextField fieldY = addInput("y", String.valueOf(mTurtleSimulator.getSimulatedY()));
         JTextField fieldAngle = addInput("角度", String.valueOf(mTurtleSimulator.getSimulatedAngle()));
+        JTextField fieldSize = addInput("大きさ", String.valueOf(mTurtleSimulator.getSimulatedSize()));
         addActionButton("実行(c)", KeyEvent.VK_C, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 double x = Double.parseDouble(fieldX.getText());
                 double y = Double.parseDouble(fieldY.getText());
                 double angle = Double.parseDouble(fieldAngle.getText());
+                double size = Double.parseDouble(fieldSize.getText());
                 mTurtleSimulator.setPosition(x, y);
                 mTurtleSimulator.setAngle(angle);
+                mTurtleSimulator.setSize(size);
             }
         });
 
@@ -159,7 +162,7 @@ public class ControllerPanel extends JPanel {
     private JTextField addInput(String description, String initialText) {
         JPanel panel = new JPanel();
         panel.setBackground(UiFactory.back);
-        panel.setLayout(new GridLayout(1,2));
+        panel.setLayout(new GridLayout(1, 2));
         JLabel label = UiFactory.label();
         label.setText(description);
         JTextField field = UiFactory.textField();
