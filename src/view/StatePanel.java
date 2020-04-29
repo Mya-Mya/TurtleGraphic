@@ -1,52 +1,75 @@
 package view;
 
 import model.MousePositionListener;
-import model.TurtleBehaviour;
-import model.TurtleBehaviourListener;
+import model.Turtle;
+import model.TurtleListener;
+import model.TurtleSimulator;
+import model.floor.FloorColor;
+import viewmodel.TurtleViewModel;
+import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StatePanel extends JPanel implements MousePositionListener, TurtleBehaviourListener {
-    private TurtleBehaviour mTurtleBehaviour;
+public class StatePanel extends JPanel implements MousePositionListener, TurtleViewModelListener, TurtleListener {
+    private TurtleViewModel mTurtleViewModel;
+    private TurtleSimulator mTurtleSimulator;
     private JLabel cMousePositionLabel;
-    private JLabel cTurtlePositionLabel;
-    private JLabel cTurtleAngleLabel;
+    private JLabel cTurtleTransformLabel;
+    private JLabel cTurtleSimulatedTransformLabel;
 
-    public StatePanel(TurtleBehaviour mTurtleBehaviour) {
+    public StatePanel(TurtleViewModel mTurtleViewModel, Turtle mTurtle, TurtleSimulator mTurtleSimulator) {
         super();
-        this.mTurtleBehaviour=mTurtleBehaviour;
+        this.mTurtleViewModel = mTurtleViewModel;
+        this.mTurtleSimulator = mTurtleSimulator;
 
         setBackground(UiFactory.back);
         setForeground(UiFactory.white);
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        setBorder(UiFactory.bigEmptyBorder());
 
         cMousePositionLabel = UiFactory.label();
         add(cMousePositionLabel);
 
-        cTurtlePositionLabel=UiFactory.label();
-        add(cTurtlePositionLabel);
+        cTurtleTransformLabel = UiFactory.label();
+        add(cTurtleTransformLabel);
 
-        cTurtleAngleLabel=UiFactory.label();
-        add(cTurtleAngleLabel);
+        cTurtleSimulatedTransformLabel = UiFactory.label();
+        add(cTurtleSimulatedTransformLabel);
 
         setVisible(true);
-        mTurtleBehaviour.addTurtleBehaviourListener(this);
+        mTurtle.addTurtleListener(this);
+        mTurtleViewModel.addTurtleViewListener(this);
     }
 
     @Override
     public void onMouseMoved(Point point) {
-        cMousePositionLabel.setText("マウス座標:"+point.x + ", " + point.y);
+        cMousePositionLabel.setText("マウス:" + point.x + ", " + point.y);
     }
 
     @Override
-    public void onTurtleBehaviourChanged() {
-        int x=(int)mTurtleBehaviour.getTurtleX();
-        int y=(int)mTurtleBehaviour.getTurtleY();
-        int angle=(((int)mTurtleBehaviour.getAngle())+360)%360;
-        cTurtlePositionLabel.setText("カメ座標:"+x+","+y);
-        cTurtleAngleLabel.setText("カメ角度:"+angle);
+    public void onTurtleViewModelChanged() {
+        int x = (int) mTurtleViewModel.getTurtleX();
+        int y = (int) mTurtleViewModel.getTurtleY();
+        int angle = (((int) mTurtleViewModel.getAngle()) + 360) % 360;
+        cTurtleTransformLabel.setText("カメ:" + x + "," + y + "," + angle);
+    }
+
+    @Override
+    public void onTurtleTransformChanged(double angle0, double angle1, double size0, double size1, double x0, double x1, double y0, double y1) {
+        int x = (int) x1;
+        int y = (int) y1;
+        int angle = (int) angle1;
+        FloorColor floorColor = mTurtleSimulator.getFloorColorOn();
+        String onFloorText = "";
+        if (floorColor != null) {
+            onFloorText = floorColor.toString() + "の上";
+        }
+        cTurtleSimulatedTransformLabel.setText("カメ(シミュレーション):" + x + "," + y + "," + angle + " " + onFloorText);
+    }
+
+    @Override
+    public void onTurtleImageChanged(Image image0, Image image1) {
+
     }
 }
