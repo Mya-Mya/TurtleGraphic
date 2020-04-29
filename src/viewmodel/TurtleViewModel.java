@@ -52,7 +52,7 @@ public class TurtleViewModel implements TurtleListener {
         listener.onTurtleViewModelChanged();
     }
 
-    private void fireTurtleBehaviourListener() {
+    private void fireTurtleViewModelListener() {
         for (TurtleViewModelListener listener : mTurtleViewModelListenerList) {
             listener.onTurtleViewModelChanged();
         }
@@ -64,6 +64,9 @@ public class TurtleViewModel implements TurtleListener {
         double deltaSize = size1 - size0;
         double deltaX = x1 - x0;
         double deltaY = y1 - y0;
+
+        if (deltaAngle == 0 && deltaSize == 0 && deltaX == 0 && deltaY == 0) return;
+
 
         AnimationFrame animation = new AnimationFrame() {
 
@@ -91,7 +94,7 @@ public class TurtleViewModel implements TurtleListener {
     @Override
     public void onTurtleImageChanged(Image image0, Image image1) {
         this.image = image1;
-        fireTurtleBehaviourListener();
+        fireTurtleViewModelListener();
     }
 
 
@@ -150,10 +153,10 @@ public class TurtleViewModel implements TurtleListener {
                     for (int i = 0; i < numFrame; i++) {
                         sleepFor(deltaTime);
                         frame.run((double) i / (double) numFrame);
-                        fireTurtleBehaviourListener();
+                        fireTurtleViewModelListener();
                     }
                     frame.finalFrame();
-                    fireTurtleBehaviourListener();
+                    fireTurtleViewModelListener();
                     sleepFor(100);
                     System.out.println(frame + "のアニメーション終了");
                 }
