@@ -58,7 +58,7 @@ public class TurtleSimulator {
 
 
     public void larger(double ratio) {
-        mTurtle.setSize(mTurtle.getSize() * ratio);
+        setSize(mTurtle.getSize() * ratio);
     }
 
     public void setAngle(double angle){
@@ -67,6 +67,10 @@ public class TurtleSimulator {
 
     public void setPosition(double x,double y){
         mTurtle.setPosition(x,y);
+    }
+
+    public void setSize(double size){
+        mTurtle.setSize(size);
     }
 
     public void smaller(double ratio) {
