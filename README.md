@@ -20,6 +20,9 @@ MVC
 5. `TurtleViewModel`は、`AnimationFrame`を別スレッドで順番に実行していく。アニメーションが行われるたびに`TurtleViewModelListener`へ通知する。
 6. `TurtleViewModelListener`を実装する`MainView`は、`TurtleViewModel`の各変数を基にカメを描画する。
 
+* `Turtle`の各変数は`TurtleBot`からの各命令に対し即時で変化するようになっている。そのため、`TurtleBot`には`if`や`while`を実装することができる。
+* しかし`TurtleBot`の各命令と条件分岐含む処理は全て即時で実行されてしまうので、動いているカメに対して外部から動的な要因を与えることはできない。
+
 # 注目ポイント(個人メモ)
 ### コンポーネント配置時の隙間の作り方
 ボックスレイアウト適用時は`Box.createVerticalStrut`で次のコンポーネントとの距離を指定できる。
