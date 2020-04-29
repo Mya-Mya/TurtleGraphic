@@ -36,7 +36,7 @@ public class ControllerPanel extends JPanel {
         addActionButton("すすむ(↑)", KeyEvent.VK_UP, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.goStraight(20);
+                mTurtleSimulator.goStraight(100);
             }
         });
 
