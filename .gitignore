@@ -2,3 +2,5 @@ out/*
 *.idea/
 *.iml
 *.png
+src/bot/TurtleBot.java
+work/*
