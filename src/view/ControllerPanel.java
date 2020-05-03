@@ -17,7 +17,7 @@ public class ControllerPanel extends JPanel {
     private JPanel pane;
     private TurtleSimulator mTurtleSimulator;
     private World mWorld;
-    private Dimension buttonSize = new Dimension(160, 30);
+    private Dimension buttonSize = new Dimension(160, 25);
 
     public ControllerPanel(TurtleSimulator mTurtleSimulator, World mWorld) {
         super();
