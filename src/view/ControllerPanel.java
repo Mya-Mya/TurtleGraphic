@@ -17,7 +17,7 @@ public class ControllerPanel extends JPanel {
     private JPanel pane;
     private TurtleSimulator mTurtleSimulator;
     private World mWorld;
-    private Dimension buttonSize = new Dimension(160, 30);
+    private Dimension buttonSize = new Dimension(160, 25);
 
     public ControllerPanel(TurtleSimulator mTurtleSimulator, World mWorld) {
         super();
@@ -31,43 +31,6 @@ public class ControllerPanel extends JPanel {
         pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
         pane.setBackground(UiFactory.back);
 
-        addComment("カメ");
-
-        addActionButton("すすむ(↑)", KeyEvent.VK_UP, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.goStraight(100);
-            }
-        });
-
-        addActionButton("右回り(→)", KeyEvent.VK_RIGHT, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.turn(45.);
-            }
-        });
-
-        addActionButton("左回り(←)", KeyEvent.VK_LEFT, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.turn(-45.);
-            }
-        });
-
-        addActionButton("大きく", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.larger(1.2);
-            }
-        });
-
-        addActionButton("小さく", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.smaller(1.2);
-
-            }
-        });
 
         addComment("位置指定");
         JTextField fieldX = addInput("x", String.valueOf(mTurtleSimulator.getSimulatedX()));
@@ -119,6 +82,44 @@ public class ControllerPanel extends JPanel {
                 if (chooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
                     mWorld.loadFloor(chooser.getSelectedFile());
                 }
+            }
+        });
+
+        addComment("カメ");
+
+        addActionButton("すすむ(↑)", KeyEvent.VK_UP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mTurtleSimulator.goStraight(100);
+            }
+        });
+
+        addActionButton("右回り(→)", KeyEvent.VK_RIGHT, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mTurtleSimulator.turn(45.);
+            }
+        });
+
+        addActionButton("左回り(←)", KeyEvent.VK_LEFT, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mTurtleSimulator.turn(-45.);
+            }
+        });
+
+        addActionButton("大きく", null, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mTurtleSimulator.larger(1.2);
+            }
+        });
+
+        addActionButton("小さく", null, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mTurtleSimulator.smaller(1.2);
+
             }
         });
 
