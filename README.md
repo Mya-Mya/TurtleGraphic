@@ -12,7 +12,7 @@ MVC
 * `x1,y1` : 床の右下の点の座標
 * `name` : 色の名前(`FloorColor.fromString`で検出される文字列)
 
-# dev1 におけるカメの動作に関する手続き
+# dev3 におけるカメの動作に関する手続き
 `TurtleBot`や`TurtleSimulator`へのメソッド呼び出しはイベントディスパッチャスレッドとは別のスレッドで実行させること。
 1. `TurtleBot`によって、`TurtleSimulator`へ動作の命令が発せられる。
 2. `TurtleSimulator`は演算を実行し`Turtle`の各変数を変更したり、`World`に問い合わせてブールメソッドを処理したりする。
