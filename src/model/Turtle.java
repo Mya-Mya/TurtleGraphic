@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * カメの座標、角度、大きさ、画像を管理する。
  * このクラスはアニメーションの管理はしないし、各変数は瞬時に変更される。
@@ -41,9 +42,21 @@ public class Turtle {
         }
     }
 
-    public void onTransformChanged(double angle0, double angle1, double size0, double size1, double x0, double x1, double y0, double y1) {
+    public void onTurtleAngleChanged() {
         for (TurtleListener l : mTurtleListenerList) {
-            l.onTurtleTransformChanged(angle0, angle1, size0, size1, x0, x1, y0, y1);
+            l.onTurtleAngleChanged(this.angle);
+        }
+    }
+
+    public void onTurtleSizeChanged() {
+        for (TurtleListener l : mTurtleListenerList) {
+            l.onTurtleSizeChanged(this.size);
+        }
+    }
+
+    public void onTurtlePositionChanged() {
+        for (TurtleListener l : mTurtleListenerList) {
+            l.onTurtlePositionChanged(this.x, this.y);
         }
     }
 
@@ -75,11 +88,13 @@ public class Turtle {
             @Override
             public void frame(double a) {
                 Turtle.this.angle = angle0 + deltaAngle * a;
+                onTurtleAngleChanged();
             }
 
             @Override
             public void finalFrame() {
                 Turtle.this.angle = angle;
+                onTurtleAngleChanged();
             }
         }, 10, 0.8);
     }
@@ -98,11 +113,13 @@ public class Turtle {
             @Override
             public void frame(double a) {
                 Turtle.this.size = size0 + deltaSize * a;
+                onTurtleSizeChanged();
             }
 
             @Override
             public void finalFrame() {
                 Turtle.this.size = size;
+                onTurtleSizeChanged();
             }
         }, 10, 0.6);
     }
@@ -119,12 +136,14 @@ public class Turtle {
             public void frame(double a) {
                 Turtle.this.x = x0 + deltaX * a;
                 Turtle.this.y = y0 + deltaY * a;
+                onTurtlePositionChanged();
             }
 
             @Override
             public void finalFrame() {
                 Turtle.this.x = x;
                 Turtle.this.y = y;
+                onTurtlePositionChanged();
             }
         }, 10, 0.8);
     }

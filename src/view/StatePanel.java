@@ -42,7 +42,7 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleL
         cMousePositionLabel.setText("マウス:" + point.x + ", " + point.y);
     }
 
-
+/*
     @Override
     public void onTurtleTransformChanged(double angle0, double angle1, double size0, double size1, double x0, double x1, double y0, double y1) {
         int x = (int) x1;
@@ -54,6 +54,22 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleL
             onFloorText = floorColor.toString() + "の上";
         }
         cTurtleSimulatedTransformLabel.setText("カメ(シミュレーション):" + x + "," + y + "," + angle + " " + onFloorText);
+    }
+ */
+
+    @Override
+    public void onTurtleAngleChanged(double angle) {
+
+    }
+
+    @Override
+    public void onTurtleSizeChanged(double size) {
+
+    }
+
+    @Override
+    public void onTurtlePositionChanged(double x, double y) {
+
     }
 
     @Override
