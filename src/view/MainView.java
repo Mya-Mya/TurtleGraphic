@@ -4,15 +4,12 @@ import model.MousePositionListener;
 import model.World;
 import model.WorldListener;
 import model.floor.Floor;
-import viewmodel.TurtleViewModel;
-import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
 
 public class MainView extends JPanel implements  WorldListener {
     private World mWorld;

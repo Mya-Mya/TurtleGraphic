@@ -1,7 +1,6 @@
 import model.Turtle;
 import model.TurtleSimulator;
 import model.World;
-import viewmodel.TurtleViewModel;
 import view.ControllerPanel;
 import view.StatePanel;
 import view.MainView;

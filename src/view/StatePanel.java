@@ -5,8 +5,6 @@ import model.Turtle;
 import model.TurtleListener;
 import model.TurtleSimulator;
 import model.floor.FloorColor;
-import viewmodel.TurtleViewModel;
-import viewmodel.TurtleViewModelListener;
 import ui.UiFactory;
 
 import javax.swing.*;
