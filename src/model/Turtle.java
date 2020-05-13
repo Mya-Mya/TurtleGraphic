@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 
 /**
@@ -18,7 +19,11 @@ public class Turtle {
     private double x;
     private double y;
 
+    private Semaphore animationSemaphore;
+
     private interface Animation {
+        void onStart();
+
         void frame(double a);//アニメーションの開始ではa=0、終了時にはa=1
 
         void finalFrame();
@@ -30,6 +35,7 @@ public class Turtle {
         this.x = x;
         this.y = y;
         setImage(new ImageIcon("img/turtle.png").getImage());
+        animationSemaphore = new Semaphore(1);
     }
 
     public void addTurtleListener(TurtleListener l) {
@@ -82,9 +88,17 @@ public class Turtle {
 
     public void setAngle(double angle) {
         if (this.angle == angle) return;
-        double angle0 = this.angle;
-        double deltaAngle = angle - angle0;
+
         startAnimation(new Animation() {
+            double angle0;
+            double deltaAngle;
+
+            @Override
+            public void onStart() {
+                angle0 = Turtle.this.angle;
+                deltaAngle = angle - angle0;
+            }
+
             @Override
             public void frame(double a) {
                 Turtle.this.angle = angle0 + deltaAngle * a;
@@ -107,9 +121,16 @@ public class Turtle {
 
     public void setSize(double size) {
         if (this.size == size) return;
-        double size0 = this.size;
-        double deltaSize = size - size0;
         startAnimation(new Animation() {
+            double size0;
+            double deltaSize;
+
+            @Override
+            public void onStart() {
+                size0 = Turtle.this.size;
+                deltaSize = size - size0;
+            }
+
             @Override
             public void frame(double a) {
                 Turtle.this.size = size0 + deltaSize * a;
@@ -127,11 +148,20 @@ public class Turtle {
 
     public void setPosition(double x, double y) {
         if (this.x == x && this.y == y) return;
-        double x0 = this.x;
-        double y0 = this.y;
-        double deltaX = x - x0;
-        double deltaY = y - y0;
         startAnimation(new Animation() {
+            double x0;
+            double y0;
+            double deltaX;
+            double deltaY;
+
+            @Override
+            public void onStart() {
+                x0 = Turtle.this.x;
+                y0 = Turtle.this.y;
+                deltaX = x - x0;
+                deltaY = y - y0;
+            }
+
             @Override
             public void frame(double a) {
                 Turtle.this.x = x0 + deltaX * a;
@@ -156,10 +186,15 @@ public class Turtle {
      * @param t         アニメーションをt sとする
      */
     public void startAnimation(Animation animation, double f, double t) {
+        if (!animationSemaphore.tryAcquire()) {
+            System.out.println("アニメーション " + animation + " 棄却");
+            return;
+        }
         double delta_t = 100. / (f);
         double delta_a = t / delta_t;
         System.out.println("アニメーション " + animation + " 開始");
         try {
+            animation.onStart();
             for (double a = 0; a < 1.; a += delta_a) {
                 animation.frame(a);
                 Thread.sleep((long) delta_t);
@@ -170,5 +205,6 @@ public class Turtle {
             e.printStackTrace();
         }
         System.out.println("アニメーション " + animation + " 終了");
+        animationSemaphore.release();
     }
 }
