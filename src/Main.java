@@ -34,7 +34,7 @@ public class Main extends JFrame {
         //ビュー
         StatePanel vStatePanel = new StatePanel(mTurtle,mTurtleSimulator);
         ControllerPanel vControllerPanel = new ControllerPanel(mTurtleSimulator,mWorld);
-        MainView vMainView = new MainView(vStatePanel, mWorld);
+        MainView vMainView = new MainView(mTurtle,vStatePanel, mWorld);
 
 
         add(vStatePanel, BorderLayout.SOUTH);
