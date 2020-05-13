@@ -164,10 +164,11 @@ public class Turtle {
                 animation.frame(a);
                 Thread.sleep((long) delta_t);
             }
+            animation.finalFrame();
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        animation.finalFrame();
         System.out.println("アニメーション " + animation + " 終了");
     }
 }
