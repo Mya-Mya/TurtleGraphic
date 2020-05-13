@@ -67,7 +67,7 @@ public class ControllerPanel extends JPanel {
         addComment("背景");
 
         Component parent = this;
-        addActionButton("背景画像", null, new ActionListener() {
+        addActionButton("背景画像(b)", KeyEvent.VK_B, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = createFileChooser(new String[]{".png", ".jpg", "jpeg"}, "背景にしたい画像を選んでね");
@@ -80,7 +80,7 @@ public class ControllerPanel extends JPanel {
             }
         });
 
-        addActionButton("床データ", null, new ActionListener() {
+        addActionButton("床データ(f)", KeyEvent.VK_F, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = createFileChooser(new String[]{".txt", ".csv"}, "持ってきたい床のデータを選んでね");
