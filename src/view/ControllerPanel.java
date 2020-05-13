@@ -95,36 +95,60 @@ public class ControllerPanel extends JPanel {
         addActionButton("すすむ(↑)", KeyEvent.VK_UP, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.goStraight(100);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTurtleSimulator.goStraight(100);
+                    }
+                }).start();
             }
         });
 
         addActionButton("右回り(→)", KeyEvent.VK_RIGHT, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.turn(45.);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTurtleSimulator.turn(45.);
+                    }
+                }).start();
             }
         });
 
         addActionButton("左回り(←)", KeyEvent.VK_LEFT, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.turn(-45.);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTurtleSimulator.turn(-45.);
+                    }
+                }).start();
             }
         });
 
         addActionButton("大きく", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.larger(1.2);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTurtleSimulator.larger(1.2);
+                    }
+                }).start();
             }
         });
 
         addActionButton("小さく", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mTurtleSimulator.smaller(1.2);
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTurtleSimulator.smaller(1.2);
+                    }
+                }).start();
             }
         });
 
