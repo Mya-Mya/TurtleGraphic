@@ -17,13 +17,18 @@ public class Turtle {
     private double x;
     private double y;
 
+    private interface Animation {
+        void frame(double a);//アニメーションの開始ではa=0、終了時にはa=1
+
+        void finalFrame();
+    }
+
     public Turtle(double angle, double size, double x, double y) {
         this.angle = angle;
         this.size = size;
         this.x = x;
         this.y = y;
         setImage(new ImageIcon("img/turtle.png").getImage());
-        onTransformChanged(angle, angle, size, size, x, x, y, y);
     }
 
     public void addTurtleListener(TurtleListener l) {
@@ -63,9 +68,20 @@ public class Turtle {
     }
 
     public void setAngle(double angle) {
+        if (this.angle == angle) return;
         double angle0 = this.angle;
-        this.angle = (angle + 360.) % 360.;
-        onTransformChanged(angle0, angle, size, size, x, x, y, y);
+        double deltaAngle = angle - angle0;
+        startAnimation(new Animation() {
+            @Override
+            public void frame(double a) {
+                Turtle.this.angle = angle0 + deltaAngle * a;
+            }
+
+            @Override
+            public void finalFrame() {
+                Turtle.this.angle = angle;
+            }
+        }, 10, 0.8);
     }
 
     public void setImage(Image image) {
@@ -75,17 +91,63 @@ public class Turtle {
     }
 
     public void setSize(double size) {
+        if (this.size == size) return;
         double size0 = this.size;
-        this.size = size;
-        onTransformChanged(angle, angle, size0, size, x, x, y, y);
+        double deltaSize = size - size0;
+        startAnimation(new Animation() {
+            @Override
+            public void frame(double a) {
+                Turtle.this.size = size0 + deltaSize * a;
+            }
+
+            @Override
+            public void finalFrame() {
+                Turtle.this.size = size;
+            }
+        }, 10, 0.6);
     }
 
 
     public void setPosition(double x, double y) {
+        if (this.x == x && this.y == y) return;
         double x0 = this.x;
         double y0 = this.y;
-        this.x = x;
-        this.y = y;
-        onTransformChanged(angle, angle, size, size, x0, x, y0, y);
+        double deltaX = x - x0;
+        double deltaY = y - y0;
+        startAnimation(new Animation() {
+            @Override
+            public void frame(double a) {
+                Turtle.this.x = x0 + deltaX * a;
+                Turtle.this.y = y0 + deltaY * a;
+            }
+
+            @Override
+            public void finalFrame() {
+                Turtle.this.x = x;
+                Turtle.this.y = y;
+            }
+        }, 10, 0.8);
+    }
+
+    /**
+     * 毎秒fフレームのアニメーションをt秒実行させる。この関数はアニメーションが終了するまで制御を戻さない。
+     *
+     * @param animation アニメーションのモデル
+     * @param f         アニメーションをf Hzとする
+     * @param t         アニメーションをt sとする
+     */
+    public void startAnimation(Animation animation, double f, double t) {
+        double delta_t = 1. / (f);
+        double delta_a = t / delta_t;
+        System.out.println("アニメーション " + animation + " 開始");
+        try {
+            for (double a = 0; a < 1.; a += delta_a) {
+                animation.frame(a);
+                Thread.sleep((long) delta_t);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        animation.finalFrame();
     }
 }
