@@ -55,7 +55,12 @@ public class ControllerPanel extends JPanel {
         addActionButton("動かす", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TurtleBot(mTurtleSimulator);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new TurtleBot(mTurtleSimulator);
+                    }
+                }).start();
             }
         });
 
