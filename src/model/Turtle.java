@@ -156,7 +156,7 @@ public class Turtle {
      * @param t         アニメーションをt sとする
      */
     public void startAnimation(Animation animation, double f, double t) {
-        double delta_t = 1. / (f);
+        double delta_t = 100. / (f);
         double delta_a = t / delta_t;
         System.out.println("アニメーション " + animation + " 開始");
         try {
@@ -168,5 +168,6 @@ public class Turtle {
             e.printStackTrace();
         }
         animation.finalFrame();
+        System.out.println("アニメーション " + animation + " 終了");
     }
 }
