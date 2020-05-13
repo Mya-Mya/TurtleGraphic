@@ -12,16 +12,14 @@ import ui.UiFactory;
 import javax.swing.*;
 import java.awt.*;
 
-public class StatePanel extends JPanel implements MousePositionListener, TurtleViewModelListener, TurtleListener {
-    private TurtleViewModel mTurtleViewModel;
+public class StatePanel extends JPanel implements MousePositionListener, TurtleListener {
     private TurtleSimulator mTurtleSimulator;
     private JLabel cMousePositionLabel;
     private JLabel cTurtleTransformLabel;
     private JLabel cTurtleSimulatedTransformLabel;
 
-    public StatePanel(TurtleViewModel mTurtleViewModel, Turtle mTurtle, TurtleSimulator mTurtleSimulator) {
+    public StatePanel(Turtle mTurtle, TurtleSimulator mTurtleSimulator) {
         super();
-        this.mTurtleViewModel = mTurtleViewModel;
         this.mTurtleSimulator = mTurtleSimulator;
 
         setBackground(UiFactory.back);
@@ -39,7 +37,6 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleV
 
         setVisible(true);
         mTurtle.addTurtleListener(this);
-        mTurtleViewModel.addTurtleViewListener(this);
     }
 
     @Override
@@ -47,13 +44,6 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleV
         cMousePositionLabel.setText("マウス:" + point.x + ", " + point.y);
     }
 
-    @Override
-    public void onTurtleViewModelChanged() {
-        int x = (int) mTurtleViewModel.getTurtleX();
-        int y = (int) mTurtleViewModel.getTurtleY();
-        int angle = (((int) mTurtleViewModel.getAngle()) + 360) % 360;
-        cTurtleTransformLabel.setText("カメ:" + x + "," + y + "," + angle);
-    }
 
     @Override
     public void onTurtleTransformChanged(double angle0, double angle1, double size0, double size1, double x0, double x1, double y0, double y1) {

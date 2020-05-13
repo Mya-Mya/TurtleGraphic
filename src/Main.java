@@ -32,13 +32,10 @@ public class Main extends JFrame {
         World mWorld = new World();
         TurtleSimulator mTurtleSimulator=new TurtleSimulator(mTurtle,mWorld);
 
-        //ビューモデル
-        TurtleViewModel mTurtleViewModel = new TurtleViewModel(mTurtle);
-
         //ビュー
-        StatePanel vStatePanel = new StatePanel(mTurtleViewModel,mTurtle,mTurtleSimulator);
+        StatePanel vStatePanel = new StatePanel(mTurtle,mTurtleSimulator);
         ControllerPanel vControllerPanel = new ControllerPanel(mTurtleSimulator,mWorld);
-        MainView vMainView = new MainView(vStatePanel, mTurtleViewModel,mWorld);
+        MainView vMainView = new MainView(vStatePanel, mWorld);
 
 
         add(vStatePanel, BorderLayout.SOUTH);

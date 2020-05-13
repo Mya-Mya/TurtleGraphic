@@ -14,15 +14,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 
-public class MainView extends JPanel implements TurtleViewModelListener, WorldListener {
-    private TurtleViewModel mTurtleViewModel;
+public class MainView extends JPanel implements  WorldListener {
     private World mWorld;
 
     public MainView(MousePositionListener iMousePositionListener,
-                    TurtleViewModel mTurtleViewModel,
                     World mWorld) {
         super();
-        this.mTurtleViewModel = mTurtleViewModel;
         this.mWorld=mWorld;
 
         setBackground(UiFactory.white);
@@ -38,7 +35,6 @@ public class MainView extends JPanel implements TurtleViewModelListener, WorldLi
         });
 
         setVisible(true);
-        mTurtleViewModel.addTurtleViewListener(this);
         mWorld.addWorldListener(this);
     }
 
@@ -60,7 +56,7 @@ public class MainView extends JPanel implements TurtleViewModelListener, WorldLi
             int height=floor.getP2().y-y;
             g2.fillRoundRect(x,y,width,height,1,1);
         }
-
+/*
         AffineTransform transform = g2.getTransform();
         double size= mTurtleViewModel.getSize();
         int width = (int) (50 * size);
@@ -71,13 +67,10 @@ public class MainView extends JPanel implements TurtleViewModelListener, WorldLi
         transform.setToRotation(Math.toRadians(angle + 90), x, y);
         g2.setTransform(transform);
         g2.drawImage(mTurtleViewModel.getImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
+ */
     }
 
 
-    @Override
-    public void onTurtleViewModelChanged() {
-        updateUI();
-    }
 
     @Override
     public void onWorldChanged() {
