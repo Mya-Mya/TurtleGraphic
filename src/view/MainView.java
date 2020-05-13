@@ -1,8 +1,6 @@
 package view;
 
-import model.MousePositionListener;
-import model.World;
-import model.WorldListener;
+import model.*;
 import model.floor.Floor;
 import ui.UiFactory;
 
@@ -10,14 +8,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 
-public class MainView extends JPanel implements  WorldListener {
+public class MainView extends JPanel implements WorldListener, TurtleListener {
+    private Turtle mTurtle;
     private World mWorld;
 
-    public MainView(MousePositionListener iMousePositionListener,
+    public MainView(Turtle mTurtle,
+                    MousePositionListener iMousePositionListener,
                     World mWorld) {
         super();
-        this.mWorld=mWorld;
+        this.mTurtle = mTurtle;
+        this.mWorld = mWorld;
 
         setBackground(UiFactory.white);
 
@@ -25,6 +27,7 @@ public class MainView extends JPanel implements  WorldListener {
             @Override
             public void mouseDragged(MouseEvent e) {
             }
+
             @Override
             public void mouseMoved(MouseEvent e) {
                 iMousePositionListener.onMouseMoved(e.getPoint());
@@ -32,6 +35,7 @@ public class MainView extends JPanel implements  WorldListener {
         });
 
         setVisible(true);
+        mTurtle.addTurtleListener(this);
         mWorld.addWorldListener(this);
     }
 
@@ -45,32 +49,51 @@ public class MainView extends JPanel implements  WorldListener {
         }
 
         for (Floor floor : mWorld.getFloorList()) {
-            Color color=floor.getFloorColor().getSwingColor();
+            Color color = floor.getFloorColor().getSwingColor();
             g2.setColor(color);
-            int x=floor.getP1().x;
-            int y=floor.getP1().y;
-            int width=floor.getP2().x-x;
-            int height=floor.getP2().y-y;
-            g2.fillRoundRect(x,y,width,height,1,1);
+            int x = floor.getP1().x;
+            int y = floor.getP1().y;
+            int width = floor.getP2().x - x;
+            int height = floor.getP2().y - y;
+            g2.fillRoundRect(x, y, width, height, 1, 1);
         }
-/*
+
         AffineTransform transform = g2.getTransform();
-        double size= mTurtleViewModel.getSize();
+        double size= mTurtle.getSize();
         int width = (int) (50 * size);
         int height = (int) (70 * size);
-        double angle= mTurtleViewModel.getAngle();
-        int x= (int) mTurtleViewModel.getTurtleX();
-        int y= (int) mTurtleViewModel.getTurtleY();
+        double angle= mTurtle.getAngle();
+        int x= (int) mTurtle.getX();
+        int y= (int) mTurtle.getY();
         transform.setToRotation(Math.toRadians(angle + 90), x, y);
         g2.setTransform(transform);
-        g2.drawImage(mTurtleViewModel.getImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
- */
-    }
+        g2.drawImage(mTurtle.getImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
 
+    }
 
 
     @Override
     public void onWorldChanged() {
+        updateUI();
+    }
+
+    @Override
+    public void onTurtleAngleChanged(double angle) {
+        updateUI();
+    }
+
+    @Override
+    public void onTurtleSizeChanged(double size) {
+        updateUI();
+    }
+
+    @Override
+    public void onTurtlePositionChanged(double x, double y) {
+        updateUI();
+    }
+
+    @Override
+    public void onTurtleImageChanged(Image image0, Image image1) {
         updateUI();
     }
 }
