@@ -4,20 +4,21 @@ import model.*;
 import model.floor.Floor;
 import ui.UiFactory;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainView extends JPanel implements WorldListener, TurtleListener {
+    private List<MainViewMouseListener> mMainViewMouseListenerList = new ArrayList<>();
     private Turtle mTurtle;
     private World mWorld;
 
-    public MainView(Turtle mTurtle,
-                    MainViewMouseListener iMainViewMouseListener,
-                    World mWorld) {
+    public MainView(Turtle mTurtle, World mWorld) {
         super();
         this.mTurtle = mTurtle;
         this.mWorld = mWorld;
@@ -31,23 +32,23 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                iMainViewMouseListener.onMouseMoved(e.getPoint());
+                fireOnMouseMoved(e.getPoint());
             }
         });
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-
+                fireOnMouseClicked(mouseEvent);
             }
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-
+                fireOnMousePressed(mouseEvent);
             }
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-
+                fireOnMouseReleased(mouseEvent);
             }
 
             @Override
@@ -64,6 +65,34 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
         setVisible(true);
         mTurtle.addTurtleListener(this);
         mWorld.addWorldListener(this);
+    }
+
+    public void addMainViewMouseListener(MainViewMouseListener l) {
+        mMainViewMouseListenerList.add(l);
+    }
+
+    private void fireOnMouseMoved(Point p) {
+        for (MainViewMouseListener l : mMainViewMouseListenerList) {
+            l.onMouseMoved(p);
+        }
+    }
+
+    private void fireOnMouseClicked(MouseEvent e) {
+        for (MainViewMouseListener l : mMainViewMouseListenerList) {
+            l.onMouseClicked(e);
+        }
+    }
+
+    private void fireOnMousePressed(MouseEvent e) {
+        for (MainViewMouseListener l : mMainViewMouseListenerList) {
+            l.onMousePressed(e);
+        }
+    }
+
+    private void fireOnMouseReleased(MouseEvent e) {
+        for (MainViewMouseListener l : mMainViewMouseListenerList) {
+            l.onMouseReleased(e);
+        }
     }
 
     @Override
@@ -86,12 +115,12 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
         }
 
         AffineTransform transform = g2.getTransform();
-        double size= mTurtle.getSize();
+        double size = mTurtle.getSize();
         int width = (int) (50 * size);
         int height = (int) (70 * size);
-        double angle= mTurtle.getAngle();
-        int x= (int) mTurtle.getX();
-        int y= (int) mTurtle.getY();
+        double angle = mTurtle.getAngle();
+        int x = (int) mTurtle.getX();
+        int y = (int) mTurtle.getY();
         transform.setToRotation(Math.toRadians(angle + 90), x, y);
         g2.setTransform(transform);
         g2.drawImage(mTurtle.getImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);

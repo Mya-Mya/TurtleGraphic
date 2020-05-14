@@ -15,7 +15,7 @@ public class StatePanel extends JPanel implements MainViewMouseListener, TurtleL
     private JLabel cMousePositionLabel;
     private JLabel cTurtleTransformLabel;
 
-    public StatePanel(Turtle mTurtle, TurtleSimulator mTurtleSimulator) {
+    public StatePanel(Turtle mTurtle, TurtleSimulator mTurtleSimulator, MainView vMainView) {
         super();
         this.mTurtle = mTurtle;
         this.mTurtleSimulator = mTurtleSimulator;
@@ -32,6 +32,7 @@ public class StatePanel extends JPanel implements MainViewMouseListener, TurtleL
 
         setVisible(true);
         mTurtle.addTurtleListener(this);
+        vMainView.addMainViewMouseListener(this);
     }
 
     @Override

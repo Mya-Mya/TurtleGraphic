@@ -11,15 +11,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 
-public class ControllerPanel extends JPanel {
+public class ControllerPanel extends JPanel implements MainViewMouseListener {
     private JPanel pane;
     private TurtleSimulator mTurtleSimulator;
     private World mWorld;
     private Dimension buttonSize = new Dimension(160, 25);
 
-    public ControllerPanel(TurtleSimulator mTurtleSimulator, World mWorld) {
+    public ControllerPanel(TurtleSimulator mTurtleSimulator, World mWorld, MainView vMainView) {
         super();
         this.mTurtleSimulator = mTurtleSimulator;
         setBackground(UiFactory.back);
@@ -155,6 +156,7 @@ public class ControllerPanel extends JPanel {
         JScrollPane scrollPane = UiFactory.scrollPane();
         scrollPane.setViewportView(pane);
         add(scrollPane, BorderLayout.CENTER);
+        vMainView.addMainViewMouseListener(this);
         setVisible(true);
     }
 
@@ -231,4 +233,23 @@ public class ControllerPanel extends JPanel {
         pane.add(Box.createVerticalStrut(5));
     }
 
+    @Override
+    public void onMouseMoved(Point point) {
+
+    }
+
+    @Override
+    public void onMouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void onMousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void onMouseReleased(MouseEvent e) {
+
+    }
 }
