@@ -240,7 +240,15 @@ public class ControllerPanel extends JPanel implements MainViewMouseListener {
 
     @Override
     public void onMouseClicked(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mTurtleSimulator.setPosition(e.getX(), e.getY());
 
+                }
+            }).start();
+        }
     }
 
     @Override
