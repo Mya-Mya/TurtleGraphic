@@ -1,10 +1,8 @@
 package view;
 
-import model.MousePositionListener;
 import model.Turtle;
 import model.TurtleListener;
 import model.TurtleSimulator;
-import model.floor.FloorColor;
 import ui.UiFactory;
 
 import javax.swing.*;
