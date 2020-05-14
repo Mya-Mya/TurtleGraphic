@@ -80,6 +80,11 @@ public class World {
         }
     }
 
+    public void removeFloor(Floor floor){
+        mFloorList.remove(floor);
+        fireWorldListener();
+    }
+
     public void setBackground(Image background) {
         this.background = background;
         fireWorldListener();

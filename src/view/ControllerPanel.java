@@ -3,26 +3,28 @@ package view;
 import bot.TurtleBot;
 import model.TurtleSimulator;
 import model.World;
+import model.floor.Floor;
+import model.floor.FloorColor;
 import ui.UiFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 
 public class ControllerPanel extends JPanel implements MainViewMouseListener {
     private JPanel pane;
     private TurtleSimulator mTurtleSimulator;
+    private Floor mSpecialFloor;
     private World mWorld;
     private Dimension buttonSize = new Dimension(160, 25);
 
     public ControllerPanel(TurtleSimulator mTurtleSimulator, World mWorld, MainView vMainView) {
         super();
         this.mTurtleSimulator = mTurtleSimulator;
+        this.mWorld = mWorld;
+
         setBackground(UiFactory.back);
         setBorder(UiFactory.smallEmptyBorder());
 
@@ -245,7 +247,6 @@ public class ControllerPanel extends JPanel implements MainViewMouseListener {
                 @Override
                 public void run() {
                     mTurtleSimulator.setPosition(e.getX(), e.getY());
-
                 }
             }).start();
         }
@@ -253,11 +254,21 @@ public class ControllerPanel extends JPanel implements MainViewMouseListener {
 
     @Override
     public void onMousePressed(MouseEvent e) {
-
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            Point p1 = e.getPoint();
+            Point p2 = new Point(p1);
+            int l = 50;
+            p1.translate(-l, -l);
+            p2.translate(l, l);
+            mSpecialFloor = new Floor(p1, p2, FloorColor.BLACK);
+            mWorld.addFloor(mSpecialFloor, true);
+        }
     }
 
     @Override
     public void onMouseReleased(MouseEvent e) {
-
+        if (mSpecialFloor != null) {
+            mWorld.removeFloor(mSpecialFloor);
+        }
     }
 }
