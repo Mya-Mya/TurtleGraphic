@@ -7,6 +7,7 @@ import ui.UiFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 
@@ -15,7 +16,7 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
     private World mWorld;
 
     public MainView(Turtle mTurtle,
-                    MousePositionListener iMousePositionListener,
+                    MainViewMouseListener iMainViewMouseListener,
                     World mWorld) {
         super();
         this.mTurtle = mTurtle;
@@ -30,7 +31,33 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                iMousePositionListener.onMouseMoved(e.getPoint());
+                iMainViewMouseListener.onMouseMoved(e.getPoint());
+            }
+        });
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+
             }
         });
 

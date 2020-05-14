@@ -7,8 +7,9 @@ import ui.UiFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
-public class StatePanel extends JPanel implements MousePositionListener, TurtleListener {
+public class StatePanel extends JPanel implements MainViewMouseListener, TurtleListener {
     private Turtle mTurtle;
     private TurtleSimulator mTurtleSimulator;
     private JLabel cMousePositionLabel;
@@ -40,6 +41,21 @@ public class StatePanel extends JPanel implements MousePositionListener, TurtleL
 
     private void updateTurtleTransformLabel() {
         cTurtleTransformLabel.setText("カメ: " + (int) mTurtle.getX() + ", " + (int) mTurtle.getY() + ", " + (int) mTurtle.getAngle());
+    }
+
+    @Override
+    public void onMouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void onMousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void onMouseReleased(MouseEvent e) {
+
     }
 
     @Override
