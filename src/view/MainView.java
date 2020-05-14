@@ -55,7 +55,7 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
             int y = floor.getP1().y;
             int width = floor.getP2().x - x;
             int height = floor.getP2().y - y;
-            g2.fillRoundRect(x, y, width, height, 1, 1);
+            g2.fillRect(x, y, width, height);
         }
 
         AffineTransform transform = g2.getTransform();
