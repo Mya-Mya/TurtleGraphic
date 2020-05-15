@@ -43,13 +43,18 @@ public class ControllerPanel extends JPanel implements MainViewMouseListener {
         addActionButton("実行(c)", KeyEvent.VK_C, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double x = Double.parseDouble(fieldX.getText());
-                double y = Double.parseDouble(fieldY.getText());
-                double angle = Double.parseDouble(fieldAngle.getText());
-                double size = Double.parseDouble(fieldSize.getText());
-                mTurtleSimulator.setPosition(x, y);
-                mTurtleSimulator.setAngle(angle);
-                mTurtleSimulator.setSize(size);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        double x = Double.parseDouble(fieldX.getText());
+                        double y = Double.parseDouble(fieldY.getText());
+                        double angle = Double.parseDouble(fieldAngle.getText());
+                        double size = Double.parseDouble(fieldSize.getText());
+                        mTurtleSimulator.setPosition(x, y);
+                        mTurtleSimulator.setAngle(angle);
+                        mTurtleSimulator.setSize(size);
+                    }
+                }).start();
             }
         });
 
