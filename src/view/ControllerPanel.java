@@ -60,7 +60,7 @@ public class ControllerPanel extends JPanel implements MainViewMouseListener {
 
         addComment("ロボットカメ");
 
-        addActionButton("動かす", null, new ActionListener() {
+        addActionButton("動かす(m)", KeyEvent.VK_M, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Thread(new Runnable() {
