@@ -6,9 +6,7 @@ import ui.UiFactory;
 
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.List;
 public class MainView extends JPanel implements WorldListener, TurtleListener {
     private List<MainViewMouseListener> mMainViewMouseListenerList = new ArrayList<>();
     private Turtle mTurtle;
+    private double g2PositionRatio = 1;
     private World mWorld;
 
     public MainView(Turtle mTurtle, World mWorld) {
@@ -59,6 +58,13 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
             @Override
             public void mouseExited(MouseEvent mouseEvent) {
 
+            }
+        });
+        addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+                g2PositionRatio *= (1. + mouseWheelEvent.getWheelRotation() * 0.01);
+                updateUI();
             }
         });
 
@@ -119,8 +125,8 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
         int width = (int) (50 * size);
         int height = (int) (70 * size);
         double angle = mTurtle.getAngle();
-        int x = (int) mTurtle.getX();
-        int y = (int) mTurtle.getY();
+        int x = (int) (mTurtle.getX() * g2PositionRatio);
+        int y = (int) (mTurtle.getY() * g2PositionRatio);
         transform.setToRotation(Math.toRadians(angle + 90), x, y);
         g2.setTransform(transform);
         g2.drawImage(mTurtle.getImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
