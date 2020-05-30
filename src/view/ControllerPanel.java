@@ -36,8 +36,8 @@ public class ControllerPanel extends JPanel implements MainViewMouseListener {
 
 
         addComment("位置指定");
-        JTextField fieldX = addInput("x", String.valueOf(mTurtleSimulator.getSimulatedX()));
-        JTextField fieldY = addInput("y", String.valueOf(mTurtleSimulator.getSimulatedY()));
+        JTextField fieldX = addInput("x", String.valueOf(mTurtleSimulator.getX()));
+        JTextField fieldY = addInput("y", String.valueOf(mTurtleSimulator.getY()));
         JTextField fieldAngle = addInput("角度", String.valueOf(mTurtleSimulator.getSimulatedAngle()));
         JTextField fieldSize = addInput("大きさ", String.valueOf(mTurtleSimulator.getSimulatedSize()));
         addActionButton("実行(c)", KeyEvent.VK_C, new ActionListener() {

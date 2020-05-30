@@ -1,7 +1,5 @@
 package model;
 
-import model.Turtle;
-import model.World;
 import model.floor.Floor;
 import model.floor.FloorColor;
 
@@ -25,16 +23,16 @@ public class TurtleSimulator {
         return mTurtle.getSize();
     }
 
-    public double getSimulatedX() {
+    public double getX() {
         return mTurtle.getX();
     }
 
-    public double getSimulatedY() {
+    public double getY() {
         return mTurtle.getY();
     }
 
     public Floor getFloorOn() {
-        return mWorld.getFloorOn(getSimulatedX(), getSimulatedY());
+        return mWorld.getFloorOn(getX(), getY());
     }
 
     public FloorColor getFloorColorOn() {
