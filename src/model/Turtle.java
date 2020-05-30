@@ -110,7 +110,7 @@ public class Turtle {
                 Turtle.this.angle = angle;
                 onTurtleAngleChanged();
             }
-        }, 10, 0.8);
+        }, 30, 0.4);
     }
 
     public void setImage(Image image) {
@@ -142,7 +142,7 @@ public class Turtle {
                 Turtle.this.size = size;
                 onTurtleSizeChanged();
             }
-        }, 10, 0.6);
+        }, 30, 0.3);
     }
 
 
@@ -175,7 +175,7 @@ public class Turtle {
                 Turtle.this.y = y;
                 onTurtlePositionChanged();
             }
-        }, 10, 0.8);
+        }, 30, 0.4);
     }
 
     /**
@@ -190,14 +190,15 @@ public class Turtle {
             System.out.println("アニメーション " + animation + " 棄却");
             return;
         }
-        double delta_t = 100. / (f);
-        double delta_a = t / delta_t;
+        double delta_t = 1. / f;
+        long delta_t_ms = (long) (delta_t * 1000.);
+        double delta_a = delta_t / t;
         System.out.println("アニメーション " + animation + " 開始");
         try {
             animation.onStart();
             for (double a = 0; a < 1.; a += delta_a) {
                 animation.frame(a);
-                Thread.sleep((long) delta_t);
+                Thread.sleep(delta_t_ms);
             }
             animation.finalFrame();
             Thread.sleep(200);
