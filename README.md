@@ -12,16 +12,19 @@ MVC
 * `x1,y1` : 床の右下の点の座標
 * `name` : 色の名前(`FloorColor.fromString`で検出される文字列)
 
-# dev1 におけるカメの動作に関する手続き
+# マウスでの操作
+左クリックで臨時に床を設けることができる。
+右クリックでカメを移動させることができる。
+
+# dev3 におけるカメの動作に関する手続き
+`TurtleBot`や`TurtleSimulator`へのメソッド呼び出しはイベントディスパッチャスレッドとは別のスレッドで実行させること。
 1. `TurtleBot`によって、`TurtleSimulator`へ動作の命令が発せられる。
 2. `TurtleSimulator`は演算を実行し`Turtle`の各変数を変更したり、`World`に問い合わせてブールメソッドを処理したりする。
-3. `Turtle`は内部の変数を直ちに変更し、`TurtleListener`へ前回の変数と今回の変数を通知する。
-4. `TurtleListener`を実装する`TurtleViewModel`は、自身の各変数がアニメーションを伴って変移できるよう、`AnimationFrame`を生成する。
-5. `TurtleViewModel`は、`AnimationFrame`を別スレッドで順番に実行していく。アニメーションが行われるたびに`TurtleViewModelListener`へ通知する。
-6. `TurtleViewModelListener`を実装する`MainView`は、`TurtleViewModel`の各変数を基にカメを描画する。
+3. `Turtle`は内部の変数を時間を欠けてアニメーションを伴って変化させ、`TurtleListener`へ断続的にその旨を通知する。その間制御は戻さない。
+4. `TurtleListener`を実装する`MainView`はその通知を受け取り次第、`Turtle`の変数に従って描画処理を行う。
 
-* `Turtle`の各変数は`TurtleBot`からの各命令に対し即時で変化するようになっている。そのため、`TurtleBot`には`if`や`while`を実装することができる。
-* しかし`TurtleBot`の各命令と条件分岐含む処理は全て即時で実行されてしまうので、動いているカメに対して外部から動的な要因を与えることはできない。
+* `Turtle`のメソッド呼び出し中は制御が戻らない。よって、`TurtleBot`の実行中に環境を動的に変更することができる。
+* そのため、動的な環境変化に伴う`if`構文や`while`構文の振る舞いの変化を観察することができる。
 
 # 注目ポイント(個人メモ)
 ### コンポーネント配置時の隙間の作り方

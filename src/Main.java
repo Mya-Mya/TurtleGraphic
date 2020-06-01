@@ -1,7 +1,6 @@
 import model.Turtle;
 import model.TurtleSimulator;
 import model.World;
-import viewmodel.TurtleViewModel;
 import view.ControllerPanel;
 import view.StatePanel;
 import view.MainView;
@@ -22,7 +21,7 @@ public class Main extends JFrame {
     }
 
     public Main() {
-        super("TurtleGraphic - dev2");
+        super("TurtleGraphic - dev3");
         setPreferredSize(new Dimension(1000, 700));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -32,13 +31,10 @@ public class Main extends JFrame {
         World mWorld = new World();
         TurtleSimulator mTurtleSimulator=new TurtleSimulator(mTurtle,mWorld);
 
-        //ビューモデル
-        TurtleViewModel mTurtleViewModel = new TurtleViewModel(mTurtle);
-
         //ビュー
-        StatePanel vStatePanel = new StatePanel(mTurtleViewModel,mTurtle,mTurtleSimulator);
-        ControllerPanel vControllerPanel = new ControllerPanel(mTurtleSimulator,mWorld);
-        MainView vMainView = new MainView(vStatePanel, mTurtleViewModel,mWorld);
+        MainView vMainView = new MainView(mTurtle, mWorld);
+        StatePanel vStatePanel = new StatePanel(mTurtle,mTurtleSimulator,vMainView);
+        ControllerPanel vControllerPanel = new ControllerPanel(mTurtleSimulator,mWorld,vMainView);
 
 
         add(vStatePanel, BorderLayout.SOUTH);
