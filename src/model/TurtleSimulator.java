@@ -59,16 +59,24 @@ public class TurtleSimulator {
         setSize(mTurtle.getSize() * ratio);
     }
 
-    public void setAngle(double angle){
+    public void say(String text) {
+        mTurtle.setRemark(text);
+    }
+
+    public void setAngle(double angle) {
         mTurtle.setAngle(angle);
     }
 
-    public void setPosition(double x,double y){
-        mTurtle.setPosition(x,y);
+    public void setPosition(double x, double y) {
+        mTurtle.setPosition(x, y);
     }
 
-    public void setSize(double size){
+    public void setSize(double size) {
         mTurtle.setSize(size);
+    }
+
+    public void silent() {
+        mTurtle.setRemark("");
     }
 
     public void smaller(double ratio) {
