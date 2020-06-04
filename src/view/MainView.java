@@ -119,17 +119,22 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
             int height = floor.getP2().y - y;
             g2.fillRect(x, y, width, height);
         }
-
-        AffineTransform transform = g2.getTransform();
-        double size = mTurtle.getSize();
-        int width = (int) (50 * size);
-        int height = (int) (70 * size);
-        double angle = mTurtle.getAngle();
         int x = (int) (mTurtle.getX() * g2PositionRatio);
         int y = (int) (mTurtle.getY() * g2PositionRatio);
+        double size = mTurtle.getSize();
+        int width = (int) (50 * size);
+        int halfWidth = (int) (width * .5);
+        int height = (int) (70 * size);
+        int halfHeight = (int) (height * .5);
+
+        g.setFont(UiFactory.mainFont);
+        g.drawString(mTurtle.getRemark(), x + halfWidth, y + halfHeight);
+
+        AffineTransform transform = g2.getTransform();
+        double angle = mTurtle.getAngle();
         transform.setToRotation(Math.toRadians(angle + 90), x, y);
         g2.setTransform(transform);
-        g2.drawImage(mTurtle.getImage(), (int) (x - width * .5), (int) (y - height * .5), width, height, this);
+        g2.drawImage(mTurtle.getImage(), x - halfWidth, y - halfHeight, width, height, this);
 
     }
 
@@ -161,5 +166,6 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
 
     @Override
     public void onTurtleRemarkChanged(String remark) {
+        updateUI();
     }
 }
