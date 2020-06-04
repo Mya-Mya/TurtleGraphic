@@ -18,6 +18,7 @@ public class Turtle {
     private double size;
     private double x;
     private double y;
+    private String remark;
 
     private Semaphore animationSemaphore;
 
@@ -34,6 +35,7 @@ public class Turtle {
         this.size = size;
         this.x = x;
         this.y = y;
+        this.remark = "";
         setImage(new ImageIcon("img/turtle.png").getImage());
         animationSemaphore = new Semaphore(1);
     }
@@ -51,6 +53,12 @@ public class Turtle {
     public void onTurtleAngleChanged() {
         for (TurtleListener l : mTurtleListenerList) {
             l.onTurtleAngleChanged(this.angle);
+        }
+    }
+
+    public void onTurtleRemarkChanged(){
+        for (TurtleListener l : mTurtleListenerList) {
+            l.onTurtleRemarkChanged(this.remark);
         }
     }
 
@@ -72,6 +80,10 @@ public class Turtle {
 
     public Image getImage() {
         return image;
+    }
+
+    public String getRemark() {
+        return remark;
     }
 
     public double getSize() {
@@ -117,6 +129,10 @@ public class Turtle {
         Image image0 = this.image;
         this.image = image;
         onImageChanged(image0, image);
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public void setSize(double size) {

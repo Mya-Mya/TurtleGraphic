@@ -158,4 +158,8 @@ public class MainView extends JPanel implements WorldListener, TurtleListener {
     public void onTurtleImageChanged(Image image0, Image image1) {
         updateUI();
     }
+
+    @Override
+    public void onTurtleRemarkChanged(String remark) {
+    }
 }

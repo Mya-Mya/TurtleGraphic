@@ -77,4 +77,9 @@ public class StatePanel extends JPanel implements MainViewMouseListener, TurtleL
     @Override
     public void onTurtleImageChanged(Image image0, Image image1) {
     }
+
+    @Override
+    public void onTurtleRemarkChanged(String remark) {
+
+    }
 }

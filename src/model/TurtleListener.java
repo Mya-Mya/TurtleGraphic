@@ -16,4 +16,8 @@ public interface TurtleListener {
      * カメの画像の変更を通知する。
      */
     void onTurtleImageChanged(Image image0,Image image1);
+    /**
+     * カメの発言の変更を通知する。
+     */
+    void onTurtleRemarkChanged(String remark);
 }
