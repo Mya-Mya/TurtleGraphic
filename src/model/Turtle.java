@@ -133,6 +133,7 @@ public class Turtle {
 
     public void setRemark(String remark) {
         this.remark = remark;
+        onTurtleRemarkChanged();
     }
 
     public void setSize(double size) {
